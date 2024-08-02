@@ -5,32 +5,32 @@ import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-
 export function FooterCompo() {
   return (
     <Footer bgDark>
-      <div className="w-full flex flex-col justify-center ">
+      <div className="w-full flex flex-col justify-center">
         <div className="grid bg-[#E17E26] w-full grid-cols-2 gap-8 px-12 py-8 md:grid-cols-4">
-          <div>
+          <div className="">
             <FooterTitle title="Company" />
-            <FooterLinkGroup col>
-              <FooterLink href="#">About</FooterLink>
-              <FooterLink href="#">Careers</FooterLink>
-              <FooterLink href="#">Brand Center</FooterLink>
-              <FooterLink href="#">Blog</FooterLink>
+            <FooterLinkGroup col className="">
+              <FooterLink href="#" className="hover:underline">About</FooterLink>
+              <FooterLink href="#" className="hover:underline">Careers</FooterLink>
+              <FooterLink href="#" className="hover:underline">Brand Center</FooterLink>
+              <FooterLink href="#" className="hover:underline">Blog</FooterLink>
             </FooterLinkGroup>
           </div>
           <div>
             <FooterTitle title="help center" />
             <FooterLinkGroup col>
-              <FooterLink href="#">Discord Server</FooterLink>
-              <FooterLink href="#">Twitter</FooterLink>
-              <FooterLink href="#">Facebook</FooterLink>
-              <FooterLink href="#">Contact Us</FooterLink>
+              <FooterLink href="#" className="hover:underline">Discord Server</FooterLink>
+              <FooterLink href="#" className="hover:underline">Twitter</FooterLink>
+              <FooterLink href="#" className="hover:underline">Facebook</FooterLink>
+              <FooterLink href="#" className="hover:underline">Contact Us</FooterLink>
             </FooterLinkGroup>
           </div>
           <div>
             <FooterTitle title="Legal" />
             <FooterLinkGroup col>
-              <FooterLink href="#">Privacy Policy</FooterLink>
-              <FooterLink href="#">Licensing</FooterLink>
-              <FooterLink href="#">Terms &amp; Conditions</FooterLink>
+              <FooterLink href="#" className="hover:underline">Privacy Policy</FooterLink>
+              <FooterLink href="#" className="hover:underline">Licensing</FooterLink>
+              <FooterLink href="#" className="hover:underline">Terms &amp; Conditions</FooterLink>
             </FooterLinkGroup>
           </div>
           <div className="flex flex-col">
@@ -39,7 +39,7 @@ export function FooterCompo() {
           </div>
         </div>
         <div className="w-full bg-[#962E14] px-4 py-6 sm:flex sm:items-center sm:justify-between">
-          <FooterCopyright href="#" by="Flowbite™" year={2022} />
+          <FooterCopyright href="#" by="ProjectIGI" year={2024} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <FooterIcon href="#" icon={BsFacebook} />
             <FooterIcon href="#" icon={BsInstagram} />
