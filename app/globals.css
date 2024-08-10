@@ -56,6 +56,13 @@
 .swalling:hover{
   transform: scale(1.2);
 }
+.--article--pic{
+  transition: all;
+  transition-duration: 0.3s; 
+}
+.--article:hover .--article--pic{
+  transform: scale(1.2);
+}
 
 
 @layer utilities {
