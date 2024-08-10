@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dosis:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Dosis:wght@200&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -15,16 +17,46 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.--sub-heading{
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
+.--main--logo{
+  font-family: "Bebas Neue";
+  transition: all;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+.--main--logo:hover{
+  transform: scale(1.2);
+}
+.icon-drop-down{
+  transition: all;
+  transition-duration: 0.2s;
+}
+.drop-down:hover  .icon-drop-down{
+  transform: rotate(180deg);
+}
+.nav-sub-heading{
+  transition: all;
+  transition-duration: 0.2s;
+  position: relative;
+  cursor: pointer;
+}
+.nav-sub-heading:hover{
+    transform: translateY(1px);
+    font-weight: bold;
+}
+.swalling{
+  transition: all;
+  transition-duration: 0.2s;
+}
+.swalling:hover{
+  transform: scale(1.2);
+}
+
 
 @layer utilities {
   .text-balance {
