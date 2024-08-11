@@ -15,18 +15,21 @@ export default function HomeNavbar(){
               <li><FaInstagram className="swalling"/></li>
               <li><FaLinkedinIn className="swalling"/></li>
             </ol>
-            <div className="flex text-[30px] justify-center items-center relative left-[-50px] --main--logo"><HiOutlinePaintBrush/><span>BloggerS.io</span></div>
-            <form action="" className="flex relative p-3">
-              <input type="text" placeholder="Search..." className="absolute hidden" />
-              <button type="submit" className="text-[25px]"><IoSearchOutline className="swalling"/></button>
-            </form>
+            <div className="flex text-[30px] justify-center items-center relative --main--logo"><HiOutlinePaintBrush/><span>BloggerS.io</span></div>
+            <div className="flex items-center">
+              <form action="" className="flex relative p-3 search--tab--navbar">
+                <input type="text" placeholder="Search..." className="absolute transition bg-gray-200" />
+                <button type="submit" className="text-[25px]"><IoSearchOutline className="swalling"/></button>
+              </form>
+              <Link href={"/signup"} className="uppercase bg-black text-white rounded-lg px-3 py-1 text-[15px]">SignUp</Link>
+            </div>
         </div>
         <div className="w-full">
           <ol className="flex justify-center gap-x-10 --sub-heading">
             <li className=" nav-sub-heading"><Link href="/">HOME</Link></li>
             <li className="flex gap-x-1   nav-sub-heading  items-center drop-down"><span>PAGES</span><IoIosArrowDown className="font-light icon-drop-down"/></li>
             <li className="flex gap-x-1   nav-sub-heading  items-center drop-down"><span>CATEGORIES</span><IoIosArrowDown className="font-light icon-drop-down"/></li>
-            <li className=" nav-sub-heading">CONTACT</li>
+            <li className=" nav-sub-heading"><Link href={"#footer"}>CONTACT </Link></li>
             <li className=" nav-sub-heading"><Link href="#footer">SUBSCRIBE</Link></li>
           </ol>
         </div>

@@ -28,8 +28,8 @@ export default function Footer(){
                                 <input type="text" id="phone" placeholder="+(XX) XXX XXX XXXX"  className="p-2 rounded-md text-black shadow-sm"/>
                             </div>
                             <div className="flex flex-col">
-                                <label htmlFor="fullname">SUBJECT</label>
-                                <input type="text" id="fullname" placeholder="ex. Subscriptions"  className="p-2 rounded-md text-black shadow-sm"/>
+                                <label htmlFor="subject">SUBJECT</label>
+                                <input type="text" id="subject" placeholder="ex. Subscriptions"  className="p-2 rounded-md text-black shadow-sm"/>
                             </div>
                         </div>
                         <div className="flex flex-col">

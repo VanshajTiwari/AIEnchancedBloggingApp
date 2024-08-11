@@ -8,19 +8,19 @@ export default function SideStories(){
         <h1 className="flex items-center text-[30px]  --main--logo" ><HiOutlinePaintBrush/>BloggerS.io</h1>
         <div>
           <p className="min-w-[200px]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus impedit, dicta aspernatur suscipit doloribus maiores tempore totam veritatis minima commodi!</p>
-          <form action="" className="w-11/12 flex justify-center items-center border-2 border-gray-200 rounded-lg m-3">
-            <input type="text" placeholder="Search articles" className="p-2"/>
-            <button type="submit" className="swalling"><IoSearchOutline className="text-[20px]"/></button>
+          <form action="" className="w-11/12 flex justify-center items-center border-2 border-gray-200 rounded-lg m-3 overflow-hidden">
+            <input type="text" placeholder="Search articles" className="p-2 w-[90%] focus:outline-0"/>
+            <button type="submit" className="swalling w-[10%]"><IoSearchOutline className="text-[20px]"/></button>
           </form>
           <div className="border-b-[1px] bg-gray-200"></div>
           <section className="flex flex-col items-center">
             <span className="text-[30px]" style={{fontFamily:"Bebas Neue , sans-serif"}}>Top trending 🔥</span>
             <div className="flex flex-wrap gap-x-2 justify-center ">
-              <button className="px-2 py-1 bg-gray-200 rounded-md m-1">Science</button>
-              <button className="px-2  py-1 bg-gray-200 rounded-md m-1">Health</button>
-              <button className="px-2  py-1 bg-gray-200 rounded-md m-1">Politics</button>
-              <button className="px-2 py-1 bg-gray-200 rounded-md m-1">General Awareness</button>
-              <button className="px-2 py-1 bg-gray-200 rounded-md m-1">Sports</button>
+              <button className="px-2 py-1 bg-gray-200 rounded-md m-1 hover:bg-gray-300">Science</button>
+              <button className="px-2  py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">Health</button>
+              <button className="px-2  py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">Politics</button>
+              <button className="px-2 py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">General Awareness</button>
+              <button className="px-2 py-1 bg-gray-200 rounded-md m-1 hover:bg-gray-300">Sports</button>
             </div>
           </section>
           <section className="flex flex-col items-center mt-2">
