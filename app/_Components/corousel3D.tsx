@@ -7,7 +7,7 @@ import img3 from "./../../public/img/landscape/landscape (3).jpg";
 import img4 from "./../../public/img/landscape/landscape (4).jpg";
 import img5 from "./../../public/img/landscape/landscape (5).jpg";
 export default function Corousel3D(){
-    const [selectedOption,setOption]=useState(1);
+    const [selectedOption,setOption]=useState(0);
     function handleSelectionfunction(number:any){
             setOption(number);
     }
@@ -27,13 +27,13 @@ export default function Corousel3D(){
             <label htmlFor="s1" id={style.slide1} className="">
                 <img src={`${img1.src}`} alt="img1" className="w-full h-full object-cover"/>
             </label>
-            <label htmlFor="s2" id={style.slide2}>
+            <label htmlFor="s2" id={style.slide2} className="">
                 <img src={`${img2.src}`} alt="img1" className="w-full h-full object-cover"/>
             </label>
-            <label htmlFor="s4" id={style.slide4} className="object-fill">
+            <label htmlFor="s4" id={style.slide4} className="">
                 <img src={`${img3.src}`} alt="img1" className="w-full h-full object-cover"/>
             </label>
-            <label htmlFor="s3" id={style.slide3}>
+            <label htmlFor="s3" id={style.slide3} className="">
                 <img src={`${img4.src}`} alt="img1" className="w-full h-full object-cover"/>
             </label>
             <label htmlFor="s5" id={style.slide5}>

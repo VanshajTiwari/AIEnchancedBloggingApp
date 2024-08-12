@@ -15,7 +15,7 @@ const articles=[
     },{
         category:"health",
         img:"https://i.pinimg.com/564x/a7/d8/aa/a7d8aa586297720cd20257a58cb54db6.jpg",
-        title:"Top Fruit comprises of most of protein",
+        title:"How to eat infront of people",
         desc:`Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, incidunt sint! Ratione quod a quo! Lorem ipsum dolor  sit amet consectetur adipisicing elit. Quas excepturi, voluptatem  rem hic reprehenderit enim ad neque voluptates. Reiciendis quisquam  laborum, nostrum mollitia eius aperiam modi voluptate consectetur  dolor et.`,
         author:"Karan Singh",
         author_img:"https://i.pinimg.com/564x/97/bb/06/97bb067e30ff6b89f4fbb7b9141025ca.jpg",

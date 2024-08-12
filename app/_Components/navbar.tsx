@@ -10,9 +10,6 @@ import { usePathname } from "next/navigation";
 
 export default function HomeNavbar(){
     const pathname=usePathname();
-    useEffect(()=>{
-      console.log(pathname);
-    },[]);
     return(
         <nav className="p-3 w-full">
         <div className="flex justify-between">
@@ -39,7 +36,7 @@ export default function HomeNavbar(){
                  <span>Explore</span><IoIosArrowDown className="font-light icon-drop-down"/>
               </div>
               <ol className="drop-down-options options1 flex flex-col mt-2 absolute z-[10] bg-white px-3 capitalize rounded-b-md h-0 overflow-hidden">
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Post</li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post">Post</Link></li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Stories</li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">About</li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Random</li>
@@ -52,16 +49,16 @@ export default function HomeNavbar(){
                     <IoIosArrowDown className="font-light icon-drop-down"/>
                 </div>
                 <ol className="drop-down-options options2 flex flex-col absolute z-[10] bg-white px-3 capitalize rounded-b-md h-0 overflow-hidden">
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Science</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Cyber</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Health</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">God</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Culture</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Lifestyle</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Kids</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Awareness</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Politics</li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Other</li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=science">Science</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=cyber">Cyber</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=health">Health</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=god">God</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=culture">Culture</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=lifestyle">Lifestyle</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=kids">Kids</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=awareness">Awareness</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=politics">Politics</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=other">Other</Link></li>
                 </ol>
             </li>
             <li className={`nav-sub-heading ${pathname=="/contact underline"?"font-bold":""}`}><Link href={"#footer"}>CONTACT </Link></li>
