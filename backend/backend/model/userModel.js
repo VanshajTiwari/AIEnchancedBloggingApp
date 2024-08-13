@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 // Define the User Schema
-const userModel = new mongoose_1.default.Schema({
+const userSchema = new mongoose_1.default.Schema({
     username: {
         type: String,
         required: true,
@@ -23,11 +23,11 @@ const userModel = new mongoose_1.default.Schema({
     },
     firstName: {
         type: String,
-        required: true
+        required: true,
     },
     familyName: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
@@ -38,7 +38,7 @@ const userModel = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
-    currentpassword: {
+    confirmpassword: {
         type: String,
     },
     resetToken: {
@@ -49,23 +49,18 @@ const userModel = new mongoose_1.default.Schema({
     },
     lastpassword: {
         type: [String],
-    }
+    },
 });
 // Pre-save hook to hash the password
-userModel.pre('save', function (next) {
+userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (!this.isModified('password')) {
+            return next();
+        }
         try {
-            const user = this;
-            // Only hash the password if it has been modified (or is new)
-            if (!user.isModified('password')) {
-                return next();
-            }
-            // Generate a salt
             const salt = yield bcrypt_1.default.genSalt(10);
-            // Hash the password with the salt
-            const hash = yield bcrypt_1.default.hash(user.password, salt);
-            // Replace the plain text password with the hashed password
-            user.password = hash;
+            this.confirmpassword = '';
+            this.password = yield bcrypt_1.default.hash(this.password, salt);
             next();
         }
         catch (error) {
@@ -74,24 +69,20 @@ userModel.pre('save', function (next) {
     });
 });
 // Method to compare the entered password with the hashed password
-userModel.methods.comparePassword = function (candidatePassword) {
+userSchema.methods.comparePassword = function (candidatePassword) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            return yield bcrypt_1.default.compare(candidatePassword, this.password);
-        }
-        catch (error) {
-            throw error;
-        }
+        return bcrypt_1.default.compare(candidatePassword, this.password);
     });
 };
 // Method to handle resetting the password
-userModel.methods.setPasswordResetToken = function (token, expiryTime) {
+userSchema.methods.setPasswordResetToken = function (token, expiryTime) {
     this.resetToken = token;
     this.resettokenexpire = expiryTime;
 };
 // Method to check if the reset token is still valid
-userModel.methods.isResetTokenValid = function () {
-    return this.resettokenexpire > Date.now();
+userSchema.methods.isResetTokenValid = function () {
+    return this.resettokenexpire > new Date();
 };
-const User = mongoose_1.default.model('User', userModel);
+// Create and export the User model
+const User = mongoose_1.default.model('User', userSchema);
 exports.default = User;

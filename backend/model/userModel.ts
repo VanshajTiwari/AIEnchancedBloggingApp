@@ -1,20 +1,37 @@
-import mongoose, { CallbackError } from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
+// Define an interface representing a document in MongoDB
+export interface IUser extends Document {
+  username: string;
+  firstName: string;
+  familyName: string;
+  avatar:string;
+  email: string;
+  password: string;
+  confirmpassword?: string;
+  resetToken?: string;
+  resettokenexpire?: Date;
+  lastpassword: string[];
+  comparePassword(candidatePassword: string): Promise<boolean>;
+  setPasswordResetToken(token: string, expiryTime: Date): void;
+  isResetTokenValid(): boolean;
+}
+
 // Define the User Schema
-const userModel = new mongoose.Schema({
+const userSchema: Schema<IUser> = new mongoose.Schema({
   username: {
     type: String,
     required: true,
     unique: true,
   },
-  firstName:{
-    type:String,
-    required:true
+  firstName: {
+    type: String,
+    required: true,
   },
-  familyName:{
-    type:String,
-    required:true
+  familyName: {
+    type: String,
+    required: true,
   },
   email: {
     type: String,
@@ -25,7 +42,7 @@ const userModel = new mongoose.Schema({
     type: String,
     required: true,
   },
-  currentpassword: {
+  confirmpassword: {
     type: String,
   },
   resetToken: {
@@ -36,28 +53,19 @@ const userModel = new mongoose.Schema({
   },
   lastpassword: {
     type: [String],
-  }
+  },
 });
 
 // Pre-save hook to hash the password
-userModel.pre('save', async function (next) {
+userSchema.pre<IUser>('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+
   try {
-    const user = this;
-
-    // Only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) {
-      return next();
-    }
-
-    // Generate a salt
     const salt = await bcrypt.genSalt(10);
-
-    // Hash the password with the salt
-    const hash = await bcrypt.hash(user.password, salt);
-
-    // Replace the plain text password with the hashed password
-    user.password = hash;
-
+    this.confirmpassword = ''
+    this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error:any) {
     next(error);
@@ -65,25 +73,22 @@ userModel.pre('save', async function (next) {
 });
 
 // Method to compare the entered password with the hashed password
-userModel.methods.comparePassword = async function (candidatePassword:any) {
-  try {
-    return await bcrypt.compare(candidatePassword, this.password);
-  } catch (error) {
-    throw error;
-  }
+userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
 // Method to handle resetting the password
-userModel.methods.setPasswordResetToken = function (token:unknown, expiryTime:Date) {
+userSchema.methods.setPasswordResetToken = function (token: string, expiryTime: Date): void {
   this.resetToken = token;
   this.resettokenexpire = expiryTime;
 };
 
 // Method to check if the reset token is still valid
-userModel.methods.isResetTokenValid = function () {
-  return this.resettokenexpire > Date.now();
+userSchema.methods.isResetTokenValid = function (): boolean {
+  return this.resettokenexpire! > new Date();
 };
 
-const User = mongoose.model('User', userModel);
+// Create and export the User model
+const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;
