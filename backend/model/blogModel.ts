@@ -1,4 +1,4 @@
-import mongoose, {Document,Schema} from "mongoose";
+import mongoose, {Document,Mongoose,Schema} from "mongoose";
 
 interface BlogI extends Document{
     author:string;
@@ -22,4 +22,14 @@ const schema=new Schema({
         default:Date.now()
     }
 
+});
+schema.pre(["findOneAndUpdate","findOneAndDelete"],async function(next){
+    console.log("RUnedd");
+    next();
 })
+schema.pre("save",async function(next){
+    this.lastUpdated=new Date();
+});
+
+const blogSchema=mongoose.model('blog',schema);
+export default blogSchema;

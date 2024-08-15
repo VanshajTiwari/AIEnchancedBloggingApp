@@ -4,11 +4,12 @@ import User from "./model/userModel";
 import dotenv from "dotenv";
 import Mongoose  from "mongoose";
 import userRoute from "./routes/userRoute";
+import Parser from "cookie-parser";
 const App=Express();
 dotenv.config();
-App.use(morgan("dev"));
+App.use(morgan("dev")); 
 App.use(Express.json());
-
+App.use(Parser());
 const dbString:string=process.env.LOCAL_CONN || "";
 App.use("/",userRoute);
 

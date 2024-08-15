@@ -56,6 +56,10 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   },
 });
 
+userSchema.pre(["findOneAndUpdate","findOneAndDelete"],async function(next){
+  console.log("RUnedd");
+  next();
+})
 // Pre-save hook to hash the password
 userSchema.pre<IUser>('save', async function (next) {
   if (!this.isModified('password')) {
@@ -66,18 +70,19 @@ userSchema.pre<IUser>('save', async function (next) {
     const salt = await bcrypt.genSalt(10);
     this.confirmpassword = ''
     this.password = await bcrypt.hash(this.password, salt);
+    this.lastpassword.push(this.password);
     next();
   } catch (error:any) {
     next(error);
   }
 });
 
-// Method to compare the entered password with the hashed password
+
 userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Method to handle resetting the password
+
 userSchema.methods.setPasswordResetToken = function (token: string, expiryTime: Date): void {
   this.resetToken = token;
   this.resettokenexpire = expiryTime;
