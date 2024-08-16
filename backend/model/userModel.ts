@@ -53,7 +53,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   },
   lastpassword: {
     type: [String],
-  },
+  }, 
 });
 
 userSchema.pre(["findOneAndUpdate","findOneAndDelete"],async function(next){
