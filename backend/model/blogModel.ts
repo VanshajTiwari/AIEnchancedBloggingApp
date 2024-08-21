@@ -1,35 +1,48 @@
-import mongoose, {Document,Mongoose,Schema} from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
+interface ContentI {
+  con_type: string;
+  data: string;
+}
 
-interface BlogI extends Document{
-    author:string;
-    createdAt:Date;
-    title:string;
-    content:[
-        type:string|number,
-        data:string
-    ],
-    lastupdated:string;
+interface BlogI extends Document {
+  category:string
+  author: unknown;
+  createdAt: Date;
+  title: string;
+  thumbnail: string;
+  content: ContentI[];
+  lastUpdated: Date;
+}
 
-};
-
-const schema=new Schema({
-    author:{type:mongoose.Schema.Types.ObjectId,ref:"user"},
-    createdAt:Date,
-    title:{type:String},
-    content:{type:[{type:String,data:String}]},
-    lastUpdated:{
-        type:Date,
-        default:Date.now()
-    }
-
-});
-schema.pre(["findOneAndUpdate","findOneAndDelete"],async function(next){
-    console.log("RUnedd");
-    next();
-})
-schema.pre("save",async function(next){
-    this.lastUpdated=new Date();
+const contentSchema = new Schema<ContentI>({
+  con_type: { type: String, required: true },
+  data: { type: String, required: true },
 });
 
-const blogSchema=mongoose.model('blog',schema);
-export default blogSchema;
+const blogSchema = new Schema<BlogI>({
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  createdAt: { type: Date, default: Date.now },
+  thumbnail: { type: String, required: [true, "Thumbnail missing"] },
+  title: { type: String, required: true },
+  category:{
+    type:String,
+    enum:["science","cyber","health","god","culture","lifestyle","kids","awareness","politics","other"]
+  }, 
+  content: { type: [contentSchema], required: true },
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+blogSchema.pre(["findOneAndUpdate", "findOneAndDelete"], async function (next) {
+  next();
+});
+
+blogSchema.pre("save", async function (next) {
+  this.lastUpdated = new Date();
+  next();
+});
+
+const BlogModel = mongoose.model<BlogI>("blog", blogSchema);
+export default BlogModel;
