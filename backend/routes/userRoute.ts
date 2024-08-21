@@ -5,17 +5,11 @@ import CatchAsync from "../utils/AsyncCatch";
 import { isLoggedIn, protect } from "../controllers/authController";
 import { login, register, updateUserDetails } from "../controllers/userController";
 dotenv.config();
-
-
-
 const Route = Router();
 
 Route.post("/register",CatchAsync(register));
-
 Route.post("/login",CatchAsync(login));
-
 Route.use(protect);
 Route.post("/editDetails",isLoggedIn,CatchAsync(updateUserDetails));
-
 
 export default Route;

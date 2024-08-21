@@ -9,10 +9,12 @@ import Pagination from "../_Components/pagination";
 
 export default function Page(){
     const searchParams=useSearchParams();
-    const [Cate,setcat]=useState(searchParams.get("cat")!==null?searchParams.get("cat"):"all");
+    const [Cate,setcat]=useState(searchParams.get("category")!==null?searchParams.get("category"):"all");
+
     useEffect(()=>{
-        setcat(searchParams.get('cat'));
-    },[searchParams.get("cat")]);
+        setcat(searchParams.get('category'));
+    },[searchParams.get("category")]);
+    
     return(
         <main className="flex flex-col items-center">
             <BackgroundStyleFixed/>

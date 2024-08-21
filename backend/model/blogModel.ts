@@ -12,6 +12,7 @@ interface BlogI extends Document {
   thumbnail: string;
   content: ContentI[];
   lastUpdated: Date;
+  desc:String
 }
 
 const contentSchema = new Schema<ContentI>({
@@ -20,10 +21,11 @@ const contentSchema = new Schema<ContentI>({
 });
 
 const blogSchema = new Schema<BlogI>({
-  author: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   createdAt: { type: Date, default: Date.now },
   thumbnail: { type: String, required: [true, "Thumbnail missing"] },
   title: { type: String, required: true },
+  desc:{type:String},
   category:{
     type:String,
     enum:["science","cyber","health","god","culture","lifestyle","kids","awareness","politics","other"]

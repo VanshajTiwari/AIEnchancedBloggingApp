@@ -94,6 +94,6 @@ userSchema.methods.isResetTokenValid = function (): boolean {
 };
 
 // Create and export the User model
-const User = mongoose.model<IUser>('User', userSchema);
+const User = mongoose.model<IUser>('users', userSchema);
 
 export default User;

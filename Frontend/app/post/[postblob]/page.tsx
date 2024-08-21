@@ -6,12 +6,19 @@ import { FaRegClock } from "react-icons/fa";
 import { Suspense, useEffect,useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Loading from "@/app/_Components/loading";
+function stylishcreator(createdAt:Date):string{
+    const date=new Date(createdAt);
+      const formattedDate = date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+      });
+    return formattedDate};
 export default function Page(){
     const {postblob}=useParams();
     const query=useSearchParams();
     const [article,setArticle]=useState({});
     useEffect(()=>{
-        console.log(postblob);
         setArticle({
         articleImg:query.get("artimg"),
         Cate:query.get("cat"),
@@ -19,8 +26,10 @@ export default function Page(){
         desc:query.get("desc"),
         authorImg:query.get("authorimg"),
         author:query.get("author"),
-        createdAt:query.get("createdat")});
-        console.log(article);
+        createdAt:stylishcreator(query.get("createdat"))});
+        
+
+
     },[postblob]);
     if(Object.keys(article).length==0){
         return <div className="w-screen h-screen flex justify-center items-center"><Loading/></div>
@@ -48,7 +57,7 @@ export default function Page(){
                     </div>
                     <h1 className="capitalize relative font-bold left-4 text-[28px] my-4">sub heading1</h1>
                     <div className="w-full min-h-[200px] max-h-[400px] flex justify-center ">
-                            <img src={article.articleImg} alt="author" className="object-cover" />
+                            <img src={article.articleImg} alt="Article Image" className="object-cover" />
                     </div>
                     <p className="mt-12 text-[18px] mb-4 text-gray-700 px-6">
                         {article.desc}

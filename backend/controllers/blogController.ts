@@ -2,7 +2,7 @@ import {Request,Response,NextFunction } from "express";
 import blogSchema from "../model/blogModel";
 export const getAllblogs=async (req:Request,res:Response)=>{
     const query=req.query;
-    const blogs=await blogSchema.find(query);
+    const blogs=await blogSchema.find(query).populate("author");
     return res.status(200).json({status:"ok",result:{blogs}});
 };
 

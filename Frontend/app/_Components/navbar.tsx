@@ -5,9 +5,9 @@ import { IoSearchOutline } from "react-icons/io5";
 import { HiOutlinePaintBrush } from "react-icons/hi2";
 import { FaFacebookF,FaLinkedinIn,FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { getBlogs } from "../_lib/action";
 export default function HomeNavbar(){
     const pathname=usePathname();
     return(
@@ -49,16 +49,16 @@ export default function HomeNavbar(){
                     <IoIosArrowDown className="font-light icon-drop-down"/>
                 </div>
                 <ol className="drop-down-options options2 flex flex-col absolute z-[10] bg-white px-3 capitalize rounded-b-md h-0 overflow-hidden">
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=science">Science</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=cyber">Cyber</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=health">Health</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=god">God</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=culture">Culture</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=lifestyle">Lifestyle</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=kids">Kids</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=awareness">Awareness</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=politics">Politics</Link></li>
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?cat=other">Other</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=science">Science</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=cyber">Cyber</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=health">Health</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=god">God</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=culture">Culture</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=lifestyle">Lifestyle</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=kids">Kids</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=awareness">Awareness</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=politics">Politics</Link></li>
+                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=other">Other</Link></li>
                 </ol>
             </li>
             <li className={`nav-sub-heading ${pathname=="/contact underline"?"font-bold":""}`}><Link href={"#footer"}>CONTACT </Link></li>

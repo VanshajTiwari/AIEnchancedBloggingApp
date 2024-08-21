@@ -19,11 +19,11 @@ export default function Corousel3D(){
     },[selectedOption]);
     return( 
         <section id={style.slider} className="w-full">
-            <input type="radio" name="slider" value={0} id={style.s1} checked={selectedOption==0} onClick={()=>handleSelectionfunction(1)} onChange={()=>{}}/>
-            <input type="radio" name="slider" value={1} id={style.s2} checked={selectedOption==1} onClick={()=>handleSelectionfunction(2)} onChange={()=>{}}/>
-            <input type="radio" name="slider" value={2} id={style.s3} checked={selectedOption==2} onClick={()=>handleSelectionfunction(3)} onChange={()=>{}}/>
-            <input type="radio" name="slider" value={3} id={style.s4} checked={selectedOption==3} onClick={()=>handleSelectionfunction(4)} onChange={()=>{}}/>
-            <input type="radio" name="slider" value={4} id={style.s5} checked={selectedOption==4} onClick={()=>handleSelectionfunction(5)} onChange={()=>{}}/>
+            <input type="radio" name="slider" value={0} id={style.s1} checked={selectedOption==0} onClick={()=>handleSelectionfunction(1)} onChange={()=>{}} className="hidden"/>
+            <input type="radio" name="slider" value={1} id={style.s2} checked={selectedOption==1} onClick={()=>handleSelectionfunction(2)} onChange={()=>{}} className="hidden"/>
+            <input type="radio" name="slider" value={2} id={style.s3} checked={selectedOption==2} onClick={()=>handleSelectionfunction(3)} onChange={()=>{}} className="hidden"/>
+            <input type="radio" name="slider" value={3} id={style.s4} checked={selectedOption==3} onClick={()=>handleSelectionfunction(4)} onChange={()=>{}} className="hidden"/>
+            <input type="radio" name="slider" value={4} id={style.s5} checked={selectedOption==4} onClick={()=>handleSelectionfunction(5)} onChange={()=>{}} className="hidden"/>
             <label htmlFor="s1" id={style.slide1} className="">
                 <img src={`${img1.src}`} alt="img1" className="w-full h-full object-cover"/>
             </label>
