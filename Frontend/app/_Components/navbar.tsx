@@ -43,6 +43,7 @@ export default function HomeNavbar(){
 
               </ol>
             </li>
+            <li><Link href="/post/addpost" className="px-3 rounded-md hover:outline-2 ouline-black hover:bg-white hover:text-black bg-black text-white font-bold">Post</Link></li>
             <li className="">
                 <div className="flex items-center  nav-sub-heading   drop-down">
                     <span>CATEGORIES</span>

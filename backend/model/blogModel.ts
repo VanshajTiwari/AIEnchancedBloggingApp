@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 interface ContentI {
+  id:number;
   con_type: string;
   data: string;
 }
@@ -16,6 +17,7 @@ interface BlogI extends Document {
 }
 
 const contentSchema = new Schema<ContentI>({
+  id:{type:Number},
   con_type: { type: String, required: true },
   data: { type: String, required: true },
 });

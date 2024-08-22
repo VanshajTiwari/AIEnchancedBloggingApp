@@ -7,10 +7,11 @@ export const getAllblogs=async (req:Request,res:Response)=>{
 };
 
 export const createNewBlog=async(req:Request,res:Response)=>{
-    const {user:author}=res.locals;
+    // const {user:author}=res.locals;
+    console.log(req.body);
     const {title,thumbnail,content,category}=req.body;
-    const blog=new blogSchema({author,title,thumbnail,content});
-    await blog.save();
+    const blog=new blogSchema({title,thumbnail,content,category});
+    // await blog.save();
     return res.status(201).json({status:"ok",result:{blog}});
 };
 

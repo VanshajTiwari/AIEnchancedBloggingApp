@@ -6,8 +6,8 @@ import { createNewBlog, deleteExistedBlog, editExistedBlog, getAllblogs } from "
 const route=Router();
 
 route.get("/?:category?",CatchAsync(getAllblogs));
-route.use(protect);
-route.use(isLoggedIn);
+// route.use(protect);
+// route.use(isLoggedIn);
 route.post("/addnew",CatchAsync(createNewBlog));
 route.patch("/:blogid/editblog",CatchAsync(editExistedBlog));
 route.delete("/:blogid/deleteblog",CatchAsync(deleteExistedBlog));
