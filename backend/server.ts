@@ -9,10 +9,7 @@ import Mongoose  from "mongoose";
 import Parser from "cookie-parser";
 const App=Express();
 dotenv.config();
-App.use(cors({
-    origin:process.env.FRONTEND_URL,
-    methods:["GET","POST","PATCH","DELETE"]
-}))
+App.use(cors())
 App.use(morgan("dev")); 
 App.use(Express.json());
 App.use(Parser());
