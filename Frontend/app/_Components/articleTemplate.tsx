@@ -30,7 +30,7 @@ export default function ArticleTemplate(){
     return(
         <>
         {articles.length==0?<div className="w-full text-center swalling text-[20px]">No Blogs Found</div>
-        :articles.map((article,index)=>{
+        :articles.map((article:any,index)=>{
           const date=new Date(article.createdAt);
           const formattedDate = date.toLocaleDateString('en-GB', {
             day: '2-digit',

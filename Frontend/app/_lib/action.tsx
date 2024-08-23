@@ -1,10 +1,14 @@
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
+
+const baseURL=process.env.NEXT_PUBLIC_BACKEND_URL;
+// console.log(baseURL)
 const axiosInstance=axios.create({
-    baseURL:process.env.BACKEND_URL||"http://localhost:8080"
+    baseURL:baseURL
 })
-export async function getBlogs(category:string=""){
+export async function getBlogs(category:string|null=""){
+    if(!category){
+        category=""
+    }
     try{
 
         const blogs=await axiosInstance({

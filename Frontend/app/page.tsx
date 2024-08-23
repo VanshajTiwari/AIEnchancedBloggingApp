@@ -4,6 +4,8 @@ import ArticleTemplate from "./_Components/articleTemplate";
 import SideStories from "./_Components/sideStories";
 import HomeNavbar from "./_Components/navbar";
 import BackgroundStyleFixed from "./_Components/backgroundStyle";
+import { Suspense } from "react";
+import Loading from "./_Components/loading";
 export default function Home() {
 
   // https://api.dicebear.com/9.x/open-peeps/svg?seed=admadk
@@ -21,7 +23,9 @@ export default function Home() {
           <div className="bg-yellow-400 w-[75%]">
               <h1 className="text-[35px] relative left-12 top-6" style={{fontFamily:"Bebas Neue"}}>Latest articles</h1>
               <div className="relative top-6 flex flex-col gap-y-4 mx-[5%]">
-                <ArticleTemplate/>
+                <Suspense fallback={<Loading/>}>
+                    <ArticleTemplate/>
+                </Suspense>
               </div>
           </div>
           <SideStories/>
