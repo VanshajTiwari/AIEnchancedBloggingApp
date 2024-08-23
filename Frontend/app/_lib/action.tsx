@@ -6,9 +6,6 @@ const axiosInstance=axios.create({
     baseURL:baseURL
 })
 export async function getBlogs(category:string|null=""){
-    if(!category){
-        category=""
-    }
     try{
 
         const blogs=await axiosInstance({

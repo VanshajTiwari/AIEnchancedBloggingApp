@@ -13,7 +13,11 @@ export default function ArticleTemplate(){
   useEffect(()=>{
     (async()=>{
       if(queryString.get("category")!=null){
-        setBlogs(JSON.stringify(await getBlogs(queryString.get("category"))));
+        let cat=queryString.get("category");
+        if(cat===undefined){
+          cat=null;
+        }
+        setBlogs(JSON.stringify(await getBlogs(cat)));
       }
       else{
         setBlogs(JSON.stringify(await getBlogs()));
