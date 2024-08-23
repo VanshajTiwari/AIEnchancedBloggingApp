@@ -1,5 +1,6 @@
 import {Request,Response,NextFunction } from "express";
 import blogSchema from "../model/blogModel";
+import User from "../model/userModel";
 export const getAllblogs=async (req:Request,res:Response)=>{
     const query=req.query;
     const blogs=await blogSchema.find(query).populate("author");
@@ -8,10 +9,22 @@ export const getAllblogs=async (req:Request,res:Response)=>{
 
 export const createNewBlog=async(req:Request,res:Response)=>{
     // const {user:author}=res.locals;
-    console.log(req.body);
-    const {title,thumbnail,content,category}=req.body;
-    const blog=new blogSchema({title,thumbnail,content,category});
+    // console.log(req.body);
+    const {data}=req.body;
+    let {author}=req.body;
+    let user=await User.findOne({email:author.email});
+    if(user){
+        author=user;
+    }
+    else{
+         author=await User.create(author);
+         await author.save();
+    }
+    const {title,thumbnail,content,category}=data;
+
+    const blog=new blogSchema({title,thumbnail,content,category,author});
     // await blog.save();
+    console.log(blog);
     return res.status(201).json({status:"ok",result:{blog}});
 };
 

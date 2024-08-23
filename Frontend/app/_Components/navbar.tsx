@@ -8,7 +8,11 @@ import { FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { getBlogs } from "../_lib/action";
+import { useAuth, useUser } from "@clerk/nextjs";
+
 export default function HomeNavbar(){
+  const {isLoaded,isSignedIn,userId}=useAuth();
+  const {user} =useUser();
     const pathname=usePathname();
     return(
         <nav className="p-3 w-full">
@@ -25,7 +29,12 @@ export default function HomeNavbar(){
                 <input type="text" placeholder="Search..." className="absolute transition bg-gray-200" />
                 <button type="submit" className="text-[25px]"><IoSearchOutline className="swalling"/></button>
               </form>
-              <Link href={"/signup"} className="uppercase bg-black text-white rounded-lg px-3 py-1 text-[15px]">SignUp</Link>
+              {isSignedIn && user?
+              <div className="flex justify-center items-center ">
+                  <img src={user.imageUrl} className="w-6 h-6 rounded-full mr-1"></img>
+                  <span className="hover:underline">{user.fullName}</span>
+              </div>:
+              <Link href={"/sign-up"} className="uppercase bg-black text-white rounded-lg px-3 py-1 text-[15px] swalling">SignUp</Link>}
             </div>
         </div>
         <div className="w-full">
@@ -36,14 +45,14 @@ export default function HomeNavbar(){
                  <span>Explore</span><IoIosArrowDown className="font-light icon-drop-down"/>
               </div>
               <ol className="drop-down-options options1 flex flex-col mt-2 absolute z-[10] bg-white px-3 capitalize rounded-b-md h-0 overflow-hidden">
-                  <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post">Post</Link></li>
+                  {<li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post">Post</Link></li>}
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Stories</li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">About</li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Random</li>
 
               </ol>
             </li>
-            <li><Link href="/post/addpost" className="px-3 rounded-md hover:outline-2 ouline-black hover:bg-white hover:text-black bg-black text-white font-bold">Post</Link></li>
+            {isSignedIn && <li><Link href="/post/addpost" className="px-4 py-2  rounded-md hover:border-2 border-black hover:bg-white hover:text-black bg-black text-white font-bold">Post</Link></li>}
             <li className="">
                 <div className="flex items-center  nav-sub-heading   drop-down">
                     <span>CATEGORIES</span>

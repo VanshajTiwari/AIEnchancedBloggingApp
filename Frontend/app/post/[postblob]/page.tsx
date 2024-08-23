@@ -6,7 +6,19 @@ import { FaRegClock } from "react-icons/fa";
 import { Suspense, useEffect,useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Loading from "@/app/_Components/loading";
-function stylishcreator(createdAt:Date):string{
+
+interface articelIn {
+    articleImg:any;
+    Cate:any;
+    title:any;
+    desc:any;
+    authorImg:any;
+    author:any;
+    createdAt:any;
+};
+
+
+function stylishcreator(createdAt:any=new Date()):string{
     const date=new Date(createdAt);
       const formattedDate = date.toLocaleDateString('en-GB', {
         day: '2-digit',
@@ -17,7 +29,7 @@ function stylishcreator(createdAt:Date):string{
 export default function Page(){
     const {postblob}=useParams();
     const query=useSearchParams();
-    const [article,setArticle]=useState({});
+    const [article,setArticle]=useState<articelIn|undefined>();
     useEffect(()=>{
         setArticle({
         articleImg:query.get("artimg"),
@@ -27,11 +39,9 @@ export default function Page(){
         authorImg:query.get("authorimg"),
         author:query.get("author"),
         createdAt:stylishcreator(query.get("createdat"))});
-        
-
 
     },[postblob]);
-    if(Object.keys(article).length==0){
+    if(article===undefined){
         return <div className="w-screen h-screen flex justify-center items-center"><Loading/></div>
     }
 

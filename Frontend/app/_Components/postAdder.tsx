@@ -4,7 +4,10 @@ import { BiTrash } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { addnewBlog } from "../_lib/action";
 import { toast } from 'react-hot-toast';
+import { getUserDetails } from "../middleware/userData";
+import { useUser } from "@clerk/nextjs";
 export default function PostEditor() {
+    const {user} =useUser();
     const [content, setContent] = useState([]);
     const [nextId, setNextId] = useState(1);
     const [title, setTitle] = useState("");
@@ -12,17 +15,17 @@ export default function PostEditor() {
     const [desc, setDesc] = useState("");  // New state for description
     const [category, setCategory] = useState("");  // New state for category
 
-    const addComponent = (con_type) => {
-        setContent([...content, { id: nextId, con_type, data: "" }]);
+    const addComponent = (con_type:any) => {
+        setContent((e):any=>[...e, { id: nextId, con_type, data: "" }]);
         setNextId(nextId + 1);
     };
 
-    const removeComponent = (id) => {
-        setContent(content.filter((item) => item.id !== id));
+    const removeComponent = (id:number) => {
+        setContent(content.filter((item:any) => item.id !== id));
     };
 
-    const updateComponentValue = (id, data) => {
-        setContent(content.map(item => item.id === id ? { ...item, data } : item));
+    const updateComponentValue = (id:number, data:any):any => {
+        setContent((e):any=>content.map((item:any) => item.id === id ? { ...item, data } : item));
     };
 
     const handleSubmit =async () => {
@@ -33,7 +36,7 @@ export default function PostEditor() {
             category,
             content,
         };
-        if(await addnewBlog(blogData)==="ok"){
+        if(await addnewBlog(blogData,getUserDetails(user))==="ok"){
             toast.success('Successfully uploaded!'); // Displays a success message
         }
         else{
@@ -112,7 +115,7 @@ export default function PostEditor() {
                 <button onClick={() => addComponent("image")} className="bg-blue-500 text-white p-2 rounded-md">Add Image</button>
             </div>
 
-            {content.map((item) => (
+            {content.map((item:any) => (
                 <div key={item.id} className="mb-4 p-2 border rounded-md">
                     <div className="flex justify-between items-center">
                         <label className="font-bold">{item.con_type}</label>

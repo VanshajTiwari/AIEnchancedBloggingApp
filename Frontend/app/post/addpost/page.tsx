@@ -7,7 +7,7 @@ import { Suspense, useEffect,useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Loading from "@/app/_Components/loading";
 import PostEditor from "@/app/_Components/postAdder";
-function stylishcreator(createdAt:Date):string{
+function stylishcreator(createdAt:any=new Date()):string{
     const date=new Date(createdAt);
       const formattedDate = date.toLocaleDateString('en-GB', {
         day: '2-digit',

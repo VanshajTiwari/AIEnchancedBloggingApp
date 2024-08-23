@@ -11,12 +11,12 @@ export default function Corousel3D(){
     function handleSelectionfunction(number:any){
             setOption(number);
     }
-    useEffect(()=>{
-        const interval=setInterval(()=>{
-            setOption((selectedOption+1)%5);
-            clearInterval(interval);
-        },3000);         
-    },[selectedOption]);
+    // useEffect(()=>{
+    //     const interval=setInterval(()=>{
+    //         setOption((selectedOption+1)%5);
+    //         clearInterval(interval);
+    //     },3000);         
+    // },[selectedOption]);
     return( 
         <section id={style.slider} className="w-full">
             <input type="radio" name="slider" value={0} id={style.s1} checked={selectedOption==0} onClick={()=>handleSelectionfunction(1)} onChange={()=>{}} className="hidden"/>

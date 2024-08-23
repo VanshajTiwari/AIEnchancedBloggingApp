@@ -17,12 +17,12 @@ export async function getBlogs(category:string=""){
         console.log("axios failed");
     }
 }
-export async function addnewBlog(data:Object){
+export async function addnewBlog(data:Object,author:unknown){
     try{
         const blogs=await axiosInstance({
             method:"POST",
             url:"/blog/addnew",
-            data
+            data:{data,author}
         });
         return blogs.data.status;
     }

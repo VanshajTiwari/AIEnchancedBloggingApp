@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "test":"npm i",
+    "test": "npm i",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.3.3",
     "@react-icons/all-files": "^4.1.0",
     "axios": "^1.7.4",
     "dotenv": "^16.4.5",
