@@ -26,7 +26,3 @@ function generatePassword(length: number): string {
     
     return password;
 }
-
-// Example usage:
-const password = generatePassword(20); // Generate a 12-character password
-console.log(password);

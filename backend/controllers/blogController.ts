@@ -8,9 +8,8 @@ export const getAllblogs=async (req:Request,res:Response)=>{
 };
 
 export const createNewBlog=async(req:Request,res:Response)=>{
-    // const {user:author}=res.locals;
-    // console.log(req.body);
     const {data}=req.body;
+    // console.log(data);
     let {author}=req.body;
     let user=await User.findOne({email:author.email});
     if(user){
@@ -20,11 +19,10 @@ export const createNewBlog=async(req:Request,res:Response)=>{
          author=await User.create(author);
          await author.save();
     }
-    const {title,thumbnail,content,category}=data;
-
-    const blog=new blogSchema({title,thumbnail,content,category,author});
-    // await blog.save();
-    console.log(blog);
+    const {title,thumbnail,content,category,desc}=data;
+    const blog=new blogSchema({title,thumbnail,desc,content,category,author});
+    // console.log(blog);
+    await blog.save();
     return res.status(201).json({status:"ok",result:{blog}});
 };
 
