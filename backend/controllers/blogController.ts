@@ -1,6 +1,12 @@
 import {Request,Response,NextFunction } from "express";
 import blogSchema from "../model/blogModel";
 import User from "../model/userModel";
+
+export const getBlogByID=async (req:Request,res:Response)=>{
+    const {id}=req.params;
+    const blogs=await blogSchema.findById(id).populate("author");
+    return res.status(200).json({status:"ok",result:{blogs}});
+}
 export const getAllblogs=async (req:Request,res:Response)=>{
     const query=req.query;
     const blogs=await blogSchema.find(query).populate("author");

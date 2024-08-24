@@ -83,6 +83,7 @@ export default function PostEditor() {
                     onChange={(e) => setDesc(e.target.value)}
                     placeholder="Enter a brief description..."
                     className="w-full p-2 border rounded-md"
+                    required
                 />
             </div>
 
@@ -95,7 +96,7 @@ export default function PostEditor() {
                     className="w-full p-2 border rounded-md"
                     required
                 >
-                    <option value="">Select a category</option>
+                    <option value="" unselectable={"off"}>Select a category</option>
                     <option value="science">Science</option>
                     <option value="cyber">Cyber</option>
                     <option value="health">Health</option>
@@ -128,8 +129,9 @@ export default function PostEditor() {
                         type="text"
                         value={item.data}
                         onChange={(e) => updateComponentValue(item.id, e.target.value)}
-                        placeholder={`Enter ${item.type} content`}
+                        placeholder={`Enter ${item.con_type} content`}
                         className="w-full mt-2 p-2 border rounded-md"
+                        required
                     />
                 </div>
             ))}

@@ -7,6 +7,7 @@ return {
     email: data.emailAddresses[0].emailAddress,
     password: defaultPassword, // Placeholder since password is not provided
     confirmpassword: defaultPassword, // Placeholder for confirmation password
+    imageUrl:data.externalAccounts[0].imageUrl,
     resetToken: null,
     resettokenexpire: null,
     lastpassword: [], // Assuming no previous passwords stored

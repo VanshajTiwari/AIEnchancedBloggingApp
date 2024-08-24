@@ -8,10 +8,11 @@ import { FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { getBlogs } from "../_lib/action";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useAuth, useClerk, useUser } from "@clerk/nextjs";
 
 export default function HomeNavbar(){
   const {isLoaded,isSignedIn,userId}=useAuth();
+  const {signOut} =useClerk();
   const {user} =useUser();
     const pathname=usePathname();
     return(
@@ -33,6 +34,7 @@ export default function HomeNavbar(){
               <div className="flex justify-center items-center ">
                   <img src={user.imageUrl} className="w-6 h-6 rounded-full mr-1"></img>
                   <span className="hover:underline">{user.fullName}</span>
+                  <button onClick={() => signOut({ redirectUrl: '/' })} className="border-2 border-black py-2 px-1 mx-2 rounded-md soft hover:bg-black hover:text-white">Logout</button>
               </div>:
               <Link href={"/sign-up"} className="uppercase bg-black text-white rounded-lg px-3 py-1 text-[15px] swalling">SignUp</Link>}
             </div>

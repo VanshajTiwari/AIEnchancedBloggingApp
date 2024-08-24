@@ -1,11 +1,12 @@
 import {Router} from "express";
 import CatchAsync from "../utils/AsyncCatch";
 import { isLoggedIn, protect } from "../controllers/authController";
-import { createNewBlog, deleteExistedBlog, editExistedBlog, getAllblogs } from "../controllers/blogController";
+import { createNewBlog, deleteExistedBlog, editExistedBlog, getAllblogs, getBlogByID } from "../controllers/blogController";
 
 const route=Router();
 
 route.get("/?:category?",CatchAsync(getAllblogs));
+route.get("/byid/:id?",CatchAsync(getBlogByID));
 // route.use(protect);
 // route.use(isLoggedIn);
 route.post("/addnew",CatchAsync(createNewBlog));

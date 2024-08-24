@@ -89,7 +89,10 @@ body{
 .search--tab--navbar:hover input,.search--tab--navbar:focus-within input{
   width: 200px;
 }
-
+.soft{
+  transition: all;
+  transition-duration: 0.5s;
+}
 
 @layer utilities {
   .text-balance {

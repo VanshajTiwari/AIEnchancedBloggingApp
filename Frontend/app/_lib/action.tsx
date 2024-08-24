@@ -31,3 +31,15 @@ export async function addnewBlog(data:Object,author:unknown){
         console.log(err);
     }
 }
+export async function getBlogById(id:string|string[]){
+    try{
+        const blogs=await axiosInstance({
+            method:"GET",
+            url:`/blog/byid/${id}`,
+        });
+        return blogs.data.result.blogs;
+    }
+    catch(err:any|Error){
+        console.log(err);
+    }
+}

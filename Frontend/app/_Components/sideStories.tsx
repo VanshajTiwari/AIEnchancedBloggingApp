@@ -2,6 +2,7 @@ import Image from "next/image";
 import { HiOutlinePaintBrush } from "react-icons/hi2";
 import { IoSearchOutline } from "react-icons/io5";
 import RecommendedArticle from "./recommededArticle";
+import Link from "next/link";
 export default function SideStories(){
     return(
         <div className="flex flex-col w-[30%] p-3">
@@ -16,11 +17,11 @@ export default function SideStories(){
           <section className="flex flex-col items-center">
             <span className="text-[30px]" style={{fontFamily:"Bebas Neue , sans-serif"}}>Top trending 🔥</span>
             <div className="flex flex-wrap gap-x-2 justify-center ">
-              <button className="px-2 py-1 bg-gray-200 rounded-md m-1 hover:bg-gray-300">Science</button>
-              <button className="px-2  py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">Health</button>
-              <button className="px-2  py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">Politics</button>
-              <button className="px-2 py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">General Awareness</button>
-              <button className="px-2 py-1 bg-gray-200 rounded-md m-1 hover:bg-gray-300">Sports</button>
+              <Link href="/post?category=science" className="px-2 py-1 bg-gray-200 rounded-md m-1 hover:bg-gray-300">Science</Link>
+              <Link href="/post?category=health" className="px-2  py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">Health</Link>
+              <Link href="/post?category=politics" className="px-2  py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">Politics</Link>
+              <Link href="/post?category=awareness" className="px-2 py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300">General Awareness</Link>
+              <Link href="/post?category=sports" className="px-2 py-1 bg-gray-200 rounded-md m-1 hover:bg-gray-300">Sports</Link>
             </div>
           </section>
           <section className="flex flex-col items-center mt-2">
