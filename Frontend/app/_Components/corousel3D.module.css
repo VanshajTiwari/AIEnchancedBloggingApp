@@ -9,9 +9,9 @@
     user-select: none;
   }
   
- .root [type=radio] {
+ /* .root [type=radio] {
     display: none;
-  }
+  } */
   
   #slider {
     height: 35vw;

@@ -1,22 +1,27 @@
 "use client";
-import { useEffect,useState, useRef } from "react";
+import { useEffect,useState } from "react";
 import style from "./corousel3D.module.css";
 import img1 from "./../../public/img/landscape/landscape (1).jpg";
 import img2 from "./../../public/img/landscape/landscape (2).jpg";
 import img3 from "./../../public/img/landscape/landscape (3).jpg";
 import img4 from "./../../public/img/landscape/landscape (4).jpg";
 import img5 from "./../../public/img/landscape/landscape (5).jpg";
+
 export default function Corousel3D(){
     const [selectedOption,setOption]=useState(0);
-    function handleSelectionfunction(number:any){
-            setOption(number);
-    }
-    // useEffect(()=>{
-    //     const interval=setInterval(()=>{
-    //         setOption((selectedOption+1)%5);
-    //         clearInterval(interval);
-    //     },3000);         
-    // },[selectedOption]);
+    function handleSelectionfunction(number:number){
+         console.log(number-1);
+         return   setOption(number-1);}
+    
+    
+    useEffect(()=>{
+        const interval=setInterval(()=>{
+            setOption((selectedOption+1)%5);
+        },3000);        
+        return ()=> clearInterval(interval);
+    },[selectedOption]);
+
+
     return( 
         <section id={style.slider} className="w-full">
             <input type="radio" name="slider" value={0} id={style.s1} checked={selectedOption==0} onClick={()=>handleSelectionfunction(1)} onChange={()=>{}} className="hidden"/>
@@ -28,16 +33,16 @@ export default function Corousel3D(){
                 <img src={`${img1.src}`} alt="img1" className="w-full h-full object-cover"/>
             </label>
             <label htmlFor="s2" id={style.slide2} className="">
-                <img src={`${img2.src}`} alt="img1" className="w-full h-full object-cover"/>
+                <img src={`${img2.src}`} alt="img2" className="w-full h-full object-cover"/>
             </label>
             <label htmlFor="s4" id={style.slide4} className="">
-                <img src={`${img3.src}`} alt="img1" className="w-full h-full object-cover"/>
+                <img src={`${img3.src}`} alt="img3" className="w-full h-full object-cover"/>
             </label>
             <label htmlFor="s3" id={style.slide3} className="">
-                <img src={`${img4.src}`} alt="img1" className="w-full h-full object-cover"/>
+                <img src={`${img4.src}`} alt="img4" className="w-full h-full object-cover"/>
             </label>
             <label htmlFor="s5" id={style.slide5}>
-                <img src={`${img5.src}`} alt="img1" className="w-full h-full object-cover"/>
+                <img src={`${img5.src}`} alt="img5" className="w-full h-full object-cover"/>
             </label>
       </section>
     )

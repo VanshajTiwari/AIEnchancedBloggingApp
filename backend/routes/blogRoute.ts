@@ -1,5 +1,5 @@
 import {Router} from "express";
-import CatchAsync from "../utils/AsyncCatch";
+import CatchAsync from "../../Frontend/app/api/utils/AsyncCatch";
 import { isLoggedIn, protect } from "../controllers/authController";
 import { createNewBlog, deleteExistedBlog, editExistedBlog, getAllblogs, getBlogByID } from "../controllers/blogController";
 

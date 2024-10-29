@@ -1,7 +1,7 @@
 
 import { Router,Request,Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import CatchAsync from "../utils/AsyncCatch";
+import CatchAsync from "../../Frontend/app/api/utils/AsyncCatch";
 import { isLoggedIn, protect } from "../controllers/authController";
 import { login, register, updateUserDetails } from "../controllers/userController";
 dotenv.config();
