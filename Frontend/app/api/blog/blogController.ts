@@ -14,16 +14,17 @@ export const getAllblogs=async (req:NextRequest,context:any)=>{
 };
 
 export const createNewBlog=async(req:NextRequest)=>{
-    const {data}=await req.json();
+    const data=await req.json();
     // console.log(data);
-    let {author}=await req.json();
-    let user=await User.findOne({email:author.email});
+
+    let {author}={author:"vanshajtiwari62@gmail.com"};//await req.json();
+    let user=await User.findOne({email:author})//author.email});
     if(user){
         author=user;
     }
     else{
-         author=await User.create(author);
-         await author.save();
+         let data:any=await User.create(author);
+         await data.save();
     }
     const {title,thumbnail,content,category,desc}=data;
     const blog=new blogSchema({title,thumbnail,desc,content,category,author});

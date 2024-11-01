@@ -12,6 +12,7 @@ export async function getBlogs(category:string|null=""){
             method:"GET",
             url:category==""?"/blog":`/blog?category=${category}`,
         });
+        console.log(blogs);
         return blogs.data.result; 
     }
     catch(err){

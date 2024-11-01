@@ -38,7 +38,7 @@ export default function ArticleTemplate(){
         setError("");
       }
     }
-  },[blogs])
+  },[blogs,ErrorMessage])
     return(
         <>
         {(ErrorMessage!="" || articles.length==0)?<div className="w-full flex justify-center items-center text-[20px] ">{ErrorMessage==""?<Loading/>:<h1 className="text-red-600 font-bold relative  top-4">{`Internal Sever ERROR :(`}</h1>}</div>

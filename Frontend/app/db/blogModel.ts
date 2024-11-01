@@ -48,5 +48,5 @@ blogSchema.pre("save", async function (next) {
   next();
 });
 
-const BlogModel = mongoose.model<BlogI>("blog", blogSchema);
+const BlogModel = mongoose.models.blogs||mongoose.model<BlogI>("blogs", blogSchema);
 export default BlogModel;

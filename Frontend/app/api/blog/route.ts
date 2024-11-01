@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { getAllblogs } from "../blogController";
+import { getAllblogs } from "./blogController";
 import connection from "@/app/db/dbConnect";
 
 
