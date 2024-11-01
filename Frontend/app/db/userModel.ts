@@ -23,7 +23,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   firstName: {
     type: String,
@@ -39,7 +39,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   password: {
     type: String,
@@ -97,6 +97,6 @@ userSchema.methods.isResetTokenValid = function (): boolean {
 };
 
 // Create and export the User model
-const User = mongoose.model<IUser>('users', userSchema);
+const User = mongoose.models.users || mongoose.model<IUser>('users', userSchema);
 
 export default User;

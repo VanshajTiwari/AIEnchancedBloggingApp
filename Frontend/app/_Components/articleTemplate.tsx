@@ -10,6 +10,7 @@ export default function ArticleTemplate(){
   const [blogs,setBlogs]=useState<string|undefined>();
   const [articles,setArticles]=useState([]);
   const queryString=useSearchParams();
+  const [ErrorMessage,setError]=useState("");
 
   useEffect(()=>{
     (async()=>{
@@ -30,11 +31,17 @@ export default function ArticleTemplate(){
       setArticles((e:any[]):any=>JSON.parse(blogs).blogs);
       // console.log(JSON.parse(blogs).blogs);
       // console.log(articles);
+      if(articles.length==0){
+        setError("Internal Server Error");
+      }
+      else{
+        setError("");
+      }
     }
   },[blogs])
     return(
         <>
-        {articles.length==0?<div className="w-full flex justify-center items-center text-[20px] "><Loading/></div>
+        {(ErrorMessage!="" || articles.length==0)?<div className="w-full flex justify-center items-center text-[20px] ">{ErrorMessage==""?<Loading/>:<h1 className="text-red-600 font-bold relative  top-4">{`Internal Sever ERROR :(`}</h1>}</div>
         :articles.map((article:any,index)=>{
           const date=new Date(article.createdAt);
           const formattedDate = date.toLocaleDateString('en-GB', {

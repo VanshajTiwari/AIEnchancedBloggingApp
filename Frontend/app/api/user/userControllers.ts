@@ -2,7 +2,7 @@ import {sign,decode,verify,JwtPayload} from "jsonwebtoken";
 import { NextRequest, NextResponse as res } from "next/server";
 import {cookies} from "next/headers";
 import User from "../../db/userModel";
-
+import connection from "@/app/db/dbConnect";
 
 function isEmail(username: string): boolean {
     const arr = username.split(/[@.]/);
@@ -17,7 +17,7 @@ export async function register(req:NextRequest){
         const { username, firstName, familyName, email, password, confirmpassword } = await req.json();
         const userInstance = new User({ username, firstName, familyName, email, password, confirmpassword });
         await userInstance.save();
-        res.json({ status: "ok", data: userInstance });
+        return res.json({ status: "ok", data: userInstance });
 }
 
 export async function login(req:NextRequest){
@@ -34,10 +34,10 @@ export async function login(req:NextRequest){
         const token=await generateToken(userData._id);
         // res.user = userData;
         cookies().set("jwt", token, { httpOnly: true, secure: true });
-        res.json({ status: "ok", data: userData });
+        return res.json({ status: "ok", data: userData });
     } else {
         // Invalid credentials
-        res.json({ status: "error", message: "Invalid username or password" });
+        return res.json({ status: "error", message: "Invalid username or password" });
     }
 }
 

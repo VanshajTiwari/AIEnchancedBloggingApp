@@ -4,8 +4,6 @@ import ArticleTemplate from "./_Components/articleTemplate";
 import SideStories from "./_Components/sideStories";
 import HomeNavbar from "./_Components/navbar";
 import BackgroundStyleFixed from "./_Components/backgroundStyle";
-import { Suspense } from "react";
-import Loading from "./_Components/loading";
 export default function Home() {
 
   // https://api.dicebear.com/9.x/open-peeps/svg?seed=admadk

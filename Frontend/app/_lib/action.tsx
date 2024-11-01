@@ -15,7 +15,8 @@ export async function getBlogs(category:string|null=""){
         return blogs.data.result; 
     }
     catch(err){
-        console.log("axios failed");
+        // console.error("server error");
+        return "";
     }
 }
 export async function addnewBlog(data:Object,author:unknown){
