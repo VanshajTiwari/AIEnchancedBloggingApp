@@ -14,7 +14,7 @@ export interface IUser extends Document {
   resettokenexpire?: Date;
   lastpassword: string[];
   comparePassword(candidatePassword: string): Promise<boolean>;
-  setPasswordResetToken(token: string, expiryTime: Date): void;
+  setPasswordResetToken(token: string, expiryTime: Date): void; 
   isResetTokenValid(): boolean;
 }
 
