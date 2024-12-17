@@ -17,7 +17,7 @@ export default function Corousel3D(){
     useEffect(()=>{
         const interval=setInterval(()=>{
             setOption((selectedOption+1)%5);
-        },3000);        
+        },2000);        
         return ()=> clearInterval(interval);
     },[selectedOption]);
 

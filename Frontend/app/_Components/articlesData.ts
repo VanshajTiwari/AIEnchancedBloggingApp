@@ -31,7 +31,7 @@ const articles=[
     },{
         category:"lifestyle",
         img:"https://i.pinimg.com/564x/1e/ba/38/1eba386781adfbf449b8e4b040a4436b.jpg",
-        title:"100 ways to impress a girl",
+        title:"cursed society",
         desc:`Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, incidunt sint! Ratione quod a quo! Lorem ipsum dolor  sit amet consectetur adipisicing elit. Quas excepturi, voluptatem  rem hic reprehenderit enim ad neque voluptates. Reiciendis quisquam  laborum, nostrum mollitia eius aperiam modi voluptate consectetur  dolor et.`,
         author:"Vishal",
         author_img:"https://i.pinimg.com/564x/97/bb/06/97bb067e30ff6b89f4fbb7b9141025ca.jpg",

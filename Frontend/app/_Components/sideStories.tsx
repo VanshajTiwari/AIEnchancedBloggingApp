@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function SideStories(){
     return(
         <div className="flex flex-col w-[30%] p-3">
-        <h1 className="flex items-center text-[30px]  --main--logo" ><HiOutlinePaintBrush/>BloggerS.io</h1>
+        <h1 className="flex items-center text-[30px]  --main--logo" ><HiOutlinePaintBrush/>AI Enchance blogging</h1>
         <div>
           <p className="min-w-[200px]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus impedit, dicta aspernatur suscipit doloribus maiores tempore totam veritatis minima commodi!</p>
           <form action="" className="w-11/12 flex justify-center items-center border-2 border-gray-200 rounded-lg m-3 overflow-hidden">

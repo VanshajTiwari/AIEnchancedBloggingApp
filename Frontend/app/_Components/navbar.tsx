@@ -24,7 +24,7 @@ export default function HomeNavbar(){
               <li><FaInstagram className="swalling"/></li>
               <li><FaLinkedinIn className="swalling"/></li>
             </ol>
-            <div className="flex text-[30px] justify-center items-center relative --main--logo"><HiOutlinePaintBrush/><span>BloggerS.io</span></div>
+            <div className="flex text-[30px] justify-center items-center relative --main--logo"><HiOutlinePaintBrush/><span>AI Enchance blogging</span></div>
             <div className="flex items-center">
               <form action="" className="flex relative p-3 search--tab--navbar">
                 <input type="text" placeholder="Search..." className="absolute transition bg-gray-200" />

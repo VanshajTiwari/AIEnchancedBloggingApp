@@ -9,13 +9,11 @@ export default function Page(){
             <HomeNavbar/>
             <section className="pt-10 rounded-md overflow-hidden bg-gray-50 dark:bg-gray-800 md:pt-0 sm:pt-16 2xl:pt-16">
                 <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
-                    <div className="grid items-center grid-cols-1 md:grid-cols-2">
+                    <div className="grid items-center grid-cols-1 md:grid-cols-2 p-4">
 
                         <div>
-                            <h2 className="text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl lg:text-5xl">Hey 👋 I
-                                 am  
-                                
-                                <br className="lg:block sm:hidden" /> Vanshaj Tiwari
+                            <h2 className="text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl lg:text-5xl">Hey 👋 we are
+                                <br className="lg:block sm:hidden" /> Team Project IGI
                             </h2>
                             <p className="max-w-lg mt-3 text-xl leading-relaxed text-gray-600 dark:text-gray-300 md:mt-8">
                                 Amet minim mollit non deserunt
@@ -36,7 +34,7 @@ export default function Page(){
                         <div className="relative">
                             <img className="absolute inset-x-0 bottom-0 -mb-48 -translate-x-1/2 left-1/2" src="https://cdn.rareblocks.xyz/collection/celebration/images/team/1/blob-shape.svg" alt="" />
 
-                            <img className="relative w-full xl:max-w-lg xl:mx-auto 2xl:origin-bottom 2xl:scale-120" src={`${user.src}`} alt="" />
+                            <img className="relative w-full xl:max-w-lg xl:mx-auto 2xl:origin-bottom 2xl:scale-120 rounded-md" src={`https://th.bing.com/th/id/OIP.lbNwtS5QHxECLgBVO2ZLzAHaEK?rs=1&pid=ImgDetMain`} alt="" />
                         </div>
 
                     </div>

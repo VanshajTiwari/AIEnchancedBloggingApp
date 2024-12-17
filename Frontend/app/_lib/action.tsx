@@ -7,7 +7,7 @@ const axiosInstance=axios.create({
 })
 export async function getBlogs(category:string|null=""){
     try{
-
+        console.log("called");
         const blogs=await axiosInstance({
             method:"GET",
             url:category==""?"/blog":`/blog?category=${category}`,

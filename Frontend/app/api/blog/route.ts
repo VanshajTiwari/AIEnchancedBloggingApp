@@ -7,5 +7,5 @@ import connection from "@/app/db/dbConnect";
 
 export async function GET(req:NextRequest,Context:any){
     connection();
-    return getAllblogs(req,Context);
+    return await getAllblogs(req,Context);
 }
