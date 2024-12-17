@@ -1,5 +1,5 @@
 "use client";
-import data from "./../_Components/articlesData";
+// import data from "./../_Components/articlesData";
 import { FaRegClock } from "react-icons/fa";
 import articles from "./articlesData";
 import { useState,useEffect } from "react";
@@ -31,19 +31,19 @@ export default function ArticleTemplate(){
   },[blogs,queryString.get("category")]);
   useEffect(()=>{
     console.log("blogs", blogs);
-    setArticles(data);
-    // if(blogs){
+    // setArticles(data);
+    if(blogs){
     
-    //   setArticles((e:any[]):any=>JSON.parse(blogs).blogs);
-    //   // console.log(JSON.parse(blogs).blogs);
-    //   // console.log(articles);
-    //   if(articles && articles.length==0){
-    //     setError("Internal Server Error");
-    //   }
-    //   else{
-    //     setError("");
-    //   }
-    // }
+      setArticles((e:any[]):any=>JSON.parse(blogs).blogs);
+      // console.log(JSON.parse(blogs).blogs);
+      console.log(articles);
+      if(articles && articles.length==0){
+        setError("Internal Server Error");
+      }
+      else{
+        setError("");
+      }
+    }
   },[blogs,ErrorMessage])
     return(
         <>
@@ -57,7 +57,7 @@ export default function ArticleTemplate(){
           });
        return <div key={index} className="flex bg-white max-w-full rounded-md overflow-hidden shadow-lg --article mb-10">
         <div className="w-[340px] h-[250px] bg-blue-300 overflow-hidden">
-          <img src={article.img} alt="article" className="h-full w-full object-cover --article--pic" />
+          <img src={article.thumbnail} alt="article" className="h-full w-full object-cover --article--pic" />
         </div>
 
         <div className="flex flex-col px-4 justify-between ">
@@ -70,9 +70,9 @@ export default function ArticleTemplate(){
             <div className="flex justify-between px-2 mb-3">
                 <div className="flex gap-x-2 cursor-pointer hover:underline">
                   <span className="w-6 h-6 rounded-full  bg-red-400 overflow-hidden">
-                    <img src={article.author_img} alt="avatar" className="h-full object-cover"/>
+                    <img src={article.author.profile_img} alt="avatar" className="h-full object-cover"/>
                   </span>
-                  <span className="font-normal capitalize">{article.author}</span>
+                  <span className="font-normal capitalize">{`${article.author.firstName} ${article.author.familyName}`}</span>
                 </div>
                 <div className="flex gap-x-2 items-center">
                   <FaRegClock/>
