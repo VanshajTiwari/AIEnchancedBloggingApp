@@ -2,6 +2,7 @@ import BackgroundStyleFixed from "../_Components/backgroundStyle";
 import Footer from "../_Components/footer";
 import HomeNavbar from "../_Components/navbar";
 import user from "./../../public/img/users/developer.png";
+
 export default function Page(){
     return(
         <main className="flex flex-col items-center">
