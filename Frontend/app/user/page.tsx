@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import BackgroundStyleFixed from "../_Components/backgroundStyle";
 import { data } from "./data";
 import { BiTrash } from "react-icons/bi";
+import Chatbot from "../_Components/chatBot";
+import CountrySelector from "./selector";
+import {COUNTRIES} from "./countries";
+import LanguageSelector from "./langSelector";
 
 function ShuffleArr(data:string[]){
     let shuffleArr:string[]=[];
@@ -14,10 +18,15 @@ function ShuffleArr(data:string[]){
 
 }
 export default function Page(){
+  const [isOpen, setIsOpen] = useState(false);
+  // Default this to a country's code to preselect it
+  const [country, setCountry] = useState<string>("IN");
     const [gender,setGender]=useState(0);
     const [avatars,setAvatars]=useState<string[]>([]);
     const [selectImg,setImg]=useState("");
+    const [isEditable, setIsEditable] = useState(false); // State to manage edit toggle
     let itemsArr:string[]=[];
+
      function genderSelectionFunction(e:any){
         console.log(e.target.value);;
         if(e.target.value==1){
@@ -30,28 +39,107 @@ export default function Page(){
         }
     }
     function SelectProfile(val:any){
-        // console.log(val.src);
         setImg(val.src);
     }
+
     return (
             <main className="flex flex-col items-center">
               <BackgroundStyleFixed/>
-        <div className="relative top-4 w-[750px] flex flex-col items-center gap-y-4 z-1 bg-white rounded-md pb-4">
-            <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-600 md:text-4xl">USER PROFILE</h2>
+              <div className="relative top-4 w-[750px] border py-4 flex flex-col items-center gap-y-4 z-1 bg-white rounded-md">
+              <h2 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-600 md:text-4xl">USER PROFILE</h2>
 
-                        <div className="flex items-center ">
-                            <label htmlFor="username" className="text-gray-800 text-lg mr-4">Username</label>
-                            <input type="text" name="username" id="username"  className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:outline-none focus:border-blue-500 block w-full p-2.5" placeholder="Username" tabIndex={0}/>
-                        </div>
-               <div className="flex gap-x-4 border border-gray-300 max-w-[800px] p-4 rounded-md">
+              <div className="grid grid-cols-2 gap-y-4 items-center">
+                  {/* Username Row */}
+                  <div className="flex items-center">
+                    <label
+                      htmlFor="username"
+                      className="text-gray-800 text-lg w-36 uppercase font-bold"
+                    >
+                      Username
+                    </label>
+                  </div>
+                  <div className="flex gap-x-2">
+                    <input
+                      type="text"
+                      name="username"
+                      id="username"
+                      className={`bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:outline-none focus:border-blue-500 block w-full p-2.5 ${
+                        !isEditable && "cursor-not-allowed opacity-50"
+                      }`}
+                      placeholder="Username"
+                      tabIndex={0}
+                      disabled={!isEditable} // Disable the field based on isEditable state
+                    />
+                    <button
+                      className="ml-4 text-blue-500 border border-blue-500 rounded-md text-sm px-3 py-1 hover:bg-blue-500 hover:text-white duration-300"
+                      onClick={() => setIsEditable(!isEditable)} // Toggle edit state
+                    >
+                      {isEditable ? "Lock" : "Edit"}
+                    </button>
+                  </div>
+
+                  {/* Country Row */}
+                  <div className="flex items-center">
+                    <label
+                      htmlFor="country"
+                      className="text-gray-800 text-lg w-36 uppercase font-bold"
+                    >
+                      Country
+                    </label>
+                  </div>
+                  <div>
+                    <CountrySelector
+                      id={"country-selector"}
+                      open={isOpen}
+                      onToggle={() => setIsOpen(!isOpen)}
+                      onChange={setCountry}
+                      selectedValue={COUNTRIES.find((option) => option.value === country)}
+                    />
+                  </div>
+
+                  {/* Language Row */}
+                  <div className="flex items-center">
+                    <label
+                      htmlFor="language"
+                      className="text-gray-800 text-lg w-36 uppercase font-bold"
+                    >
+                      Language
+                    </label>
+                  </div>
+                  <div>
+                    <LanguageSelector/>
+                  </div>
+
+                  {/* Bio Row */}
+                  <div className="flex items-center">
+                    <label
+                      htmlFor="bio"
+                      className="text-gray-800 text-lg w-36 uppercase font-bold"
+                    >
+                      Bio
+                    </label>
+                  </div>
+                  <div>
+                    <textarea
+                      name="bio"
+                      id="bio"
+                      className="w-[300px] h-20 bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:outline-none focus:border-blue-500 block w-full p-2.5"
+                      placeholder="Bio"
+                      tabIndex={0}
+                    />
+                  </div>
+              </div>
+
+
+               <div className="flex gap-x-4 border border-x-0 border border-gray-300 w-full p-4">
                         <div className="flex justify-center items-center">
-                            <div className="w-[250px] h-[250px] flex items-center justify-center rounded-full bg-yellow-300 overflow-hidden">
-                                {selectImg==""?<h1 className="text-white p-2 bg-black w-full text-center text-lg">Select Image</h1>:<img src={selectImg} alt=""  className="w-full h-full object-cover"/>}
+                            <div className="w-[250px] h-[250px] flex items-center justify-center rounded-full bg-gray-50 border overflow-hidden">
+                                {selectImg==""?<h1 className="text-white p-2 bg-black font-bold w-full text-center text-lg">Select Image</h1>:<img src={selectImg} alt=""  className="w-full h-full object-cover"/>}
                             </div>
                         </div>
                         <div>
                             <div className="max-w-[200px] my-4">
-                                <label htmlFor="countries_disabled" className="block mb-2 text-sm font-medium text-gray-900">Select an option</label>
+                                <label htmlFor="countries_disabled" className="block mb-2 text-sm font-bold text-gray-900 uppercase">Select an option</label>
                                 <select id="countries_disabled" defaultChecked defaultValue={0} nonce="0"  onChange={genderSelectionFunction} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-blue-500 block w-full p-2.5">
                                     <option value="0" disabled>Choose your gender</option>
                                     <option value="1">Male</option>
@@ -67,16 +155,15 @@ export default function Page(){
                <h2 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-600 md:text-4xl">INTEREST</h2>
                <CategorySelector/>
                <button className="text-green-400 border border-green-400 rounded-md text-lg px-4 py-1 hover:bg-green-400 hover:text-white duration-500 hover:scale-125 active:scale-75">SAVE</button>
-        </div>
 
+        </div>
+      <Chatbot/>
         </main>
     )
 }
 
-
-
 const CategorySelector = () => {
-  const [interests, setInterests] = useState([]);
+  const [interests, setInterests] = useState<string[]>([]);
   
   const categories = [
     "Science",
@@ -91,7 +178,7 @@ const CategorySelector = () => {
   ];
 
   // Handle adding a category to the selected list
-  const handleSelectCategory = (category:never) => {
+  const handleSelectCategory = (category:string) => {
     if (!interests.includes(category)) {
       setInterests([...interests, category]);
     }

@@ -26,7 +26,7 @@ export default function DetailsView(){
                     <div className="flex justify-between px-2 mb-3">
                         <div className="flex gap-x-2 cursor-pointer hover:underline">
                             <span className="w-6 h-6 rounded-full  bg-red-400 overflow-hidden">
-                                <img src={article.author.imageUrl} alt="avatar" className="h-full object-cover"/>
+                                <img src={article.author.profile_img} alt="avatar" className="h-full object-cover"/>
                             </span>
                             <span className="font-normal capitalize">{article.author.firstName+" "+article.author.familyName}</span>
                             </div>
