@@ -1,17 +1,8 @@
-.root * {
-    margin: 0;
-    padding: 0;
-  }
+
   
-.root   body:global {
-    padding: 20px;
-    background: #eee;
-    user-select: none;
-  }
-  
- /* .root [type=radio] {
+ .root [type=radio] {
     display: none;
-  } */
+  }
   
   #slider {
     height: 35vw;
@@ -22,7 +13,7 @@
   
   #slider label {
     margin: auto;
-    width: 60%;
+    width: 75%;
     height: 100%;
     border-radius: 4px;
     position: absolute;

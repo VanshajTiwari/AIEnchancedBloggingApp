@@ -16,33 +16,42 @@ export default function HomeNavbar(){
   const {user} =useUser();
     const pathname=usePathname();
     return(
-        <nav className="p-3 w-full">
-        <div className="flex justify-between">
+        <nav className="p-3 h-25 w-full">
+        <div className="">
             <ol className="flex gap-x-2">
               <li><FaFacebookF className="swalling"/></li>
               <li><FaXTwitter className="swalling"/></li>
               <li><FaInstagram className="swalling"/></li>
               <li><FaLinkedinIn className="swalling"/></li>
             </ol>
-            <div className="flex text-[30px] justify-center items-center relative --main--logo"><HiOutlinePaintBrush/><span>AI Enchance blogging</span></div>
-            <div className="flex items-center">
+            <div className="flex text-[25px] m-2 justify-center items-center relative -top-2">
+              <h1 className="--main--logo  -rotate-6">
+                 <HiOutlinePaintBrush/><span>AI Enchance blogging</span>    
+              </h1>
+            </div>
+            <div className="absolute right-4 top-8 flex items-center">
               <form action="" className="flex relative p-3 search--tab--navbar">
                 <input type="text" placeholder="Search..." className="absolute transition bg-gray-200" />
                 <button type="submit" className="text-[25px]"><IoSearchOutline className="swalling"/></button>
               </form>
               {isSignedIn && user?
-              <div className="flex justify-center items-center ">
+              <Link href={`/user/${user.emailAddresses}`} className="flex justify-center items-center ">
                   <img src={user.imageUrl} className="w-6 h-6 rounded-full mr-1"></img>
                   <span className="hover:underline">{user.fullName}</span>
                   <button onClick={() => signOut({ redirectUrl: '/' })} className="border-2 border-black py-2 px-1 mx-2 rounded-md soft hover:bg-black hover:text-white">Logout</button>
-              </div>:
+              </Link>:
               <Link href={"/sign-up"} className="uppercase bg-black text-white rounded-lg px-3 py-1 text-[15px] swalling">SignUp</Link>}
             </div>
         </div>
         <div className="w-full">
-          <ol className="flex justify-center gap-x-10 --sub-heading">
-            <li className={`nav-sub-heading  ${pathname=="/"?"font-bold underline":""}`}><Link href="/">HOME</Link></li>
-            <li className="">
+          <ol className="flex justify-center gap-x-10 --sub-heading text-gray-600">
+          {isSignedIn && <li className="relative -top-2"><Link href="/post/addpost" className="px-4 py-2 flex items-center justify-center  rounded-md border border-gray-300 hover:shadow-md border-black text-black font-bold"><HiOutlinePaintBrush/>Post</Link></li>}
+          {isSignedIn && <li className={`nav-sub-heading uppercase hover:scale-125 ${""}`}><Link href="/">For You</Link></li>}
+          {isSignedIn && <li className={`nav-sub-heading uppercase ${""}`}><Link href="/">Trending</Link></li>}
+          {isSignedIn && <li className={`nav-sub-heading uppercase ${""}`}><Link href="/">Following</Link></li>}
+
+          {!isSignedIn && <li className={`nav-sub-heading  ${pathname=="/"?"font-bold underline":""}`}><Link href="/">HOME</Link></li>}
+           {!isSignedIn && <li className="">
               <div className="flex items-center  nav-sub-heading   drop-down">
                  <span>Explore</span><IoIosArrowDown className="font-light icon-drop-down"/>
               </div>
@@ -53,8 +62,8 @@ export default function HomeNavbar(){
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md">Random</li>
 
               </ol>
-            </li>
-            {isSignedIn && <li><Link href="/post/addpost" className="px-4 py-2  rounded-md hover:border-2 border-black hover:bg-white hover:text-black bg-black text-white font-bold">Post</Link></li>}
+            </li>}
+
             <li className="">
                 <div className="flex items-center  nav-sub-heading   drop-down">
                     <span>CATEGORIES</span>

@@ -1,5 +1,8 @@
 import { FaRegEnvelope } from "react-icons/fa";
-export default function Footer(){
+import { sendMail } from "../_lib/action";
+import SubmitButton from "./submitButton";
+export default async function Footer(){
+    
     return(
         <footer className="text-black w-3/4 p-4 relative top-12 bottom-0 rounded-t-lg flex bg-white flex justify-between" id="footer">
                 <div className="flex flex-col p-4">
@@ -11,32 +14,32 @@ export default function Footer(){
                     <span className="text-[10px] text-grey-700 relative top-12">&copy;2024 ProjectIGI</span>
                 </div>
                 <div>
-                    <form action="" className="bg-white p-3 m-3 max-w-[400px] shadow-lg rounded-md" style={{fontFamily:"Arsenal SC",fontWeight:"700"}}>
+                    <form action={sendMail} className="bg-white p-3 m-3 max-w-[400px] shadow-lg rounded-md" style={{fontFamily:"Arsenal SC",fontWeight:"700"}}>
                         <div className="grid grid-cols-2">
                             <div className="flex flex-col mr-2">
                                 <label htmlFor="fullname">FULL NAME</label>
-                                <input type="text" id="fullname" placeholder="ex. John Doe" className="p-2 rounded-md text-black shadow-sm"/>
+                                <input type="text" id="fullname" name="fullname" placeholder="ex. John Doe" className="p-2 rounded-md text-black shadow-sm"  required/>
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="email">EMAIL ADDRESS</label>
-                                <input type="text" id="email" placeholder="example@gmail.com"  className="p-2 rounded-md text-black shadow-sm"/>
+                                <input type="text" id="email" name="email" placeholder="example@gmail.com"  className="p-2 rounded-md text-black shadow-sm"  required/>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 relative my-4">
                             <div className="flex flex-col mr-2">
                                 <label htmlFor="phone">PHONE</label>
-                                <input type="text" id="phone" placeholder="+(XX) XXX XXX XXXX"  className="p-2 rounded-md text-black shadow-sm"/>
+                                <input type="text" id="phone" name="phone" placeholder="+(XX) XXX XXX XXXX"  className="p-2 rounded-md text-black shadow-sm"  required/>
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="subject">SUBJECT</label>
-                                <input type="text" id="subject" placeholder="ex. Subscriptions"  className="p-2 rounded-md text-black shadow-sm"/>
+                                <input type="text" id="subject" name="subject" placeholder="subject"  className="p-2 rounded-md text-black shadow-sm" required/>
                             </div>
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="message">Message</label>
-                            <textarea id="message" placeholder="Message..."  className="p-2 rounded-md text-white shadow-sm relative mb-2 rounded-sm"></textarea>
+                            <textarea id="message" name="message" placeholder="Message..."  required className="p-2 rounded-md text-black shadow-sm relative mb-2 rounded-sm"></textarea>
                         </div>
-                        <button className="bg-black p-2 trasition-all text-[14px] duration-300 text-white rounded-lg hover:scale-110">Send message</button>
+                        <SubmitButton label="sending...">Send Message</SubmitButton>
                     </form>
                 </div>
         </footer>

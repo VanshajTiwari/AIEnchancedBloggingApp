@@ -5,8 +5,6 @@ import SideStories from "./_Components/sideStories";
 import HomeNavbar from "./_Components/navbar";
 import BackgroundStyleFixed from "./_Components/backgroundStyle";
 export default function Home() {
-  
-  // https://api.dicebear.com/9.x/open-peeps/svg?seed=admadk
   return (
 
     <main className="flex flex-col items-center">
