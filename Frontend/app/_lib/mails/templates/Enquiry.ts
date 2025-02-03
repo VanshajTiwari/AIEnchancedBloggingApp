@@ -1,7 +1,7 @@
-const enquiry=(sender)=>`<!DOCTYPE html>
+const enquiry=(sender:any):string=>`<!DOCTYPE html>
 <html>
   <head>
-    <title>Hello, World!</title>
+    <title>Enquiry</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
       body{
@@ -26,19 +26,19 @@ const enquiry=(sender)=>`<!DOCTYPE html>
         <div>
           <div>
             <span>FullName :</span>
-            <span>${sender}</span>
+            <span>${sender.fullname}</span>
           </div>          
           <div>
             <span>Email :</span>
-            <span>vanshajtiwari62@gmail.com</span>
+            <span>${sender.email}</span>
           </div>          
           <div>
             <span>Phone No. :</span>
-            <span>+91 9368644771</span>
+            <span>${sender.phone}</span>
           </div>         
           <div>
             <span>subject :</span>
-            <span>This is Subject</span>
+            <span>${sender.subject}</span>
           </div>
         </div>
       </div>
@@ -46,10 +46,12 @@ const enquiry=(sender)=>`<!DOCTYPE html>
         <h1>Message</h1>
         <div>
           <div>
-              <p>This is mEssage</p>
+              <p>${sender.message}</p>
           </div>          
         </div>
       </div>
   </body>
 </html>`;
 
+
+export default enquiry;

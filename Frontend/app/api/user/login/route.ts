@@ -1,5 +1,5 @@
-import { NextRequest as req, NextResponse, NextRequest } from "next/server";
-import { login } from "../userControllers";
+import { NextRequest as req, NextRequest } from "next/server";
+import { getAllUsers, login } from "../userControllers";
 import CatchAsync from "../../utils/AsyncCatch";
 import connection from "@/app/db/dbConnect";
 export async function POST(req:NextRequest){
@@ -7,7 +7,7 @@ export async function POST(req:NextRequest){
     return CatchAsync(login(req));
 }
 
-export async function GET(){
+export async function GET(req:NextRequest){
     connection();
-    return NextResponse.json({message:"route for message is working now"});
+    return getAllUsers(req);
 }

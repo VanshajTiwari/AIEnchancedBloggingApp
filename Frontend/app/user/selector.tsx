@@ -48,6 +48,7 @@ export default function CountrySelector({
     <div ref={ref} className="w-[300px]">
       <div className="mt-1 relative">
         <button
+          id="country"
           type="button"
           className={`${
             disabled ? "bg-neutral-100" : "bg-white"

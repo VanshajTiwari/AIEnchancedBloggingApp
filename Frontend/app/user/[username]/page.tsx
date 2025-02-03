@@ -1,8 +1,13 @@
 import BackgroundStyleFixed from '@/app/_Components/backgroundStyle';
 import React from 'react';
 import {Cards,FeatureList} from './cards';
+import { auth } from '@/app/_lib/auth';
+import { Session } from 'next-auth';
+import { findUserById } from '@/app/_lib/action';
 
-const ProfileCard = () => {
+const ProfileCard =async () => {
+  const Session=await auth();
+  const User=await findUserById(Session?.user._id!);
   return (
     <>
     <BackgroundStyleFixed/>
@@ -11,14 +16,14 @@ const ProfileCard = () => {
       <div className="px-5 py-2 flex flex-col gap-3 pb-6">
         <div className="min-h-[150px] min-w-[150px] shadow-md w-[90px] rounded-full border-4 overflow-hidden -mt-20 border-white">
           <img
-            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YXZhdGFyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
+            src={User?.profile_img}
             alt="Avatar"
             className="w-full h-full object-cover"
           />
         </div>
         <div>
-          <h3 className="text-xl text-slate-900 relative font-bold leading-6">Vanshaj Tiwari</h3>
-          <p className="text-sm text-gray-600">@vanshajt01</p>
+          <h3 className="text-xl text-slate-900 relative font-bold leading-6">{Session?.user.name}</h3>
+          <p className="text-sm text-gray-600">@{Session?.user.username}</p>
         </div>
         <div className='font-bold uppercase text-[12px] flex border border-gray-10'>
             <span className='border-r bg-white p-2 shadow-b'>12k+ Fellows</span>
@@ -53,7 +58,7 @@ const ProfileCard = () => {
         </div>
         <h4 className="text-lg font-medium pt-4 uppercase leading-3">About</h4>
         <p className="text-sm text-stone-500">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere dolores aliquid sequi sunt iusto ipsum earum natus omnis asperiores architecto praesentium dignissimos pariatur, ipsa cum? Voluptate vero eius at voluptas?
+            {User.bio}
         </p>
         <h4 className="text-lg font-medium pt-4 uppercase leading-3">Experiences</h4>
         <div className="flex flex-col gap-3">

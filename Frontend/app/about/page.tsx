@@ -47,7 +47,7 @@ const OurTeam = () => {
     {
       name: "Vishal Singhal",
       role: "Managing Director",
-      image: "https://tailone.tailwindtemplate.net/src/img/dummy/avatar3.png",
+      image: "https://tailone.tailwindtemplate.net/src/img/dummy/avatar2.png",
       socialLinks: {
         twitter: "#",
         facebook: "#",
@@ -58,7 +58,7 @@ const OurTeam = () => {
       {
         name: "Shivam Goyal",
         role: "Sweeper",
-        image: "https://tailone.tailwindtemplate.net/src/img/dummy/avatar2.png",
+        image: "https://tailone.tailwindtemplate.net/src/img/dummy/avatar3.png",
         socialLinks: {
           twitter: "#",
           facebook: "#",

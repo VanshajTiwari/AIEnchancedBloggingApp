@@ -14,6 +14,8 @@ interface BlogI extends Document {
   content: ContentI[];
   lastUpdated: Date;
   desc:String
+  reviews:unknown
+  OtherFields:string
 }
 
 const contentSchema = new Schema<ContentI>({
@@ -36,8 +38,18 @@ const blogSchema = new Schema<BlogI>({
   lastUpdated: {
     type: Date,
     default: Date.now,
-  },
+  }},{
+   toJSON:{virtuals:true},
+  toObject:{virtuals:true},
 });
+blogSchema.virtual("virtual").get(function(){
+  return "virtual value";
+})
+blogSchema.virtual('reviews',{
+    ref:"reviews",
+    localField:"_id",
+    foreignField:'post',
+  });
 
 blogSchema.pre(["findOneAndUpdate", "findOneAndDelete"], async function (next) {
   next();

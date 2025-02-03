@@ -1,8 +1,7 @@
-import {sign,decode,verify,JwtPayload} from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse as res } from "next/server";
-import {cookies} from "next/headers";
 import User from "../../db/userModel";
-import connection from "@/app/db/dbConnect";
 
 function isEmail(username: string): boolean {
     const arr = username.split(/[@.]/);
@@ -45,4 +44,10 @@ export async function updateUserDetails(req:NextRequest){
     const {username,firstName,familyName}=await req.json();
     // const updatedData=await User.findByIdAndUpdate(res.user._id,{username,firstName,familyName},{new:true});
     return res.json({status:"ok",result:"updatedData"});
+}
+
+export async function getAllUsers(req:NextRequest){
+    const users=await User.find({});
+    const usersWithFullname = users.map(user => user.toObject({ virtuals: true }));
+    return res.json({ status: "ok", result: usersWithFullname });
 }

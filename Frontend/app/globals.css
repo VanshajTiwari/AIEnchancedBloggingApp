@@ -108,3 +108,20 @@ body{
     text-wrap: balance;
   }
 }
+
+
+.spinny {
+  margin: 3.2rem auto 1.6rem;
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid #1B2631;
+  border-right-color: #B7C7D7;
+  animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}

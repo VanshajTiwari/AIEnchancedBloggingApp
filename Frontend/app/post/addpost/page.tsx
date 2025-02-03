@@ -9,7 +9,7 @@ export default function Page(){
         <main className="flex flex-col items-center ">
          <BackgroundStyleFixed/>
          <HomeNavbar/>
-         <section className="w-[1000px] p-3 rounded-lg shadow-2xl mt-4">
+         <section className="w-[1000px] rounded-lg shadow-2xl mt-4">
                 <Suspense fallback={<Loading/>}>
                     <PostEditor/>
                 </Suspense>

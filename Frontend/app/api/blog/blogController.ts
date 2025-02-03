@@ -5,7 +5,16 @@ import User from "../../db/userModel";
 export const getBlogByID=async (req:NextRequest,context:any)=>{
     const {id}=context.params;
     const blogs=await blogSchema.findById(id).populate("author");
-    return NextResponse.json({status:"ok",result:{blogs}});
+    return NextResponse.json({status:"ok",result:{blogs},blogSchema});
+}
+export const getBlogsByIdWithReviews=async (req:NextRequest,context:any)=>{
+    const {id}=context.params;
+    const blogs=await blogSchema.findById(id).populate("author").populate({path:"reviews",populate: {
+        path: "user",
+        select: "fullname profile_img family_name given_name email",
+      },
+    });
+    return NextResponse.json({status:"ok",result:{blogs},blogSchema});
 }
 export const getAllblogs=async (req:NextRequest,context:any)=>{
     const query=context.query;

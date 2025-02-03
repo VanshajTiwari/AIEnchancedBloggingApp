@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { langs } from "./countries"; // Importing langs from langs.ts
 
-const LanguageSelector = () => {
+const LanguageSelector = ({
+  selectedLanguage,
+  setSelectedLanguage
+}:{selectedLanguage:string,setSelectedLanguage:React.Dispatch<React.SetStateAction<string>>}
+) => {
   const [search, setSearch] = useState(""); // User input for filtering
-  const [selectedLanguage, setSelectedLanguage] = useState(""); // Stores the selected language
+// Stores the selected language
   const [filteredLanguages, setFilteredLanguages] = useState<any>(langs); // Filtered language list
   const [isOpen,setmodel]=useState<boolean>(false);
   // Handle search input changes
@@ -24,7 +28,6 @@ const LanguageSelector = () => {
     setFilteredLanguages(langs); // Reset the filtered list
     setmodel(!isOpen);
   };
-//   console.log(langs);
 
   return (
     <div className="max-w-sm mx-auto mt-5">

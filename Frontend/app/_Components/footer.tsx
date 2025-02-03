@@ -39,7 +39,7 @@ export default async function Footer(){
                             <label htmlFor="message">Message</label>
                             <textarea id="message" name="message" placeholder="Message..."  required className="p-2 rounded-md text-black shadow-sm relative mb-2 rounded-sm"></textarea>
                         </div>
-                        <SubmitButton label="sending...">Send Message</SubmitButton>
+                        <SubmitButton successMsg="Mail Sent!" label="sending...">Send Message</SubmitButton>
                     </form>
                 </div>
         </footer>
