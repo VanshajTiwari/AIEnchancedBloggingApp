@@ -193,6 +193,7 @@ export async function updateUpvoteDownvote(postId: string, vote: boolean) {
 
 export async function updateReviewsShare(postId:string){
     try {
+        await connection();
         const session = await auth();
         if (!session?.user?._id) {
           return { status: false, message: "User not authenticated" };
@@ -208,6 +209,7 @@ export async function updateReviewsShare(postId:string){
             isShared:true
           });
         }
+        console.log(review);
         await review.save(); // ✅ Use await to ensure save completes
         return { status: true, message:"link copied"  };
       } catch (err: any) {

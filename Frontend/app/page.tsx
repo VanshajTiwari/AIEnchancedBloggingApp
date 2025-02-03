@@ -19,7 +19,7 @@ export default function Home() {
           <div className="bg-yellow-400 w-[75%]">
               <h1 className="text-[35px] relative left-12 top-6" style={{fontFamily:"Bebas Neue"}}>Latest articles</h1>
               <div className="relative top-6 flex flex-col gap-y-4 mx-[5%] soft">
-                    <ArticleTemplate/>
+                    <ArticleTemplate />
               </div>
           </div>
           <SideStories/>

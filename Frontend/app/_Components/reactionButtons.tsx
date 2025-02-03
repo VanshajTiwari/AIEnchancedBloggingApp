@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getReview, updateReviewsShare, updateUpvoteDownvote } from "../_lib/action";
 import { toast } from "react-toastify";
 
-export default function ReactionButtons({ blogId, user }: { blogId: string; user: any }) {
+export default function ReactionButtons({ blogId, user,classes }: { blogId: string; user: any ;classes?:string}) {
   const [vote, setVote] = useState<boolean | null>(null);
 
   // Fetch initial vote state
@@ -35,14 +35,14 @@ export default function ReactionButtons({ blogId, user }: { blogId: string; user
   };
 
   const handleShare = async() => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_FRONTEND_URL}/post/${blogId}`);
     const {status,message}=await updateReviewsShare(blogId);
     status?toast.success(message):toast.error(message);
 
   };
 
   return (
-    <div className="relative top-2 mb-6 flex justify-around w-full rounded-sm overflow-hidden border border-gray-300">
+    <div className={`relative top-2 mb-6 flex justify-around overflow-hidden border border-gray-300 ${classes}`} >
       {/* Upvote Button */}
       <button
         onClick={handleUpvote}

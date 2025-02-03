@@ -5,7 +5,10 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getBlogs } from "../_lib/action";
 import Loading from "./loading";
+import ReactionButtons from "./reactionButtons";
+import { useSession } from "next-auth/react";
 export default function ArticleTemplate(){
+  const {data:Session}=useSession();
   const [blogs,setBlogs]=useState<string|undefined>();
   const [articles,setArticles]=useState<any>([]);
   const queryString=useSearchParams();
@@ -18,11 +21,9 @@ export default function ArticleTemplate(){
         if(cat===undefined){
           cat=null;
         }
-        console.log("catrolller");
         setBlogs(JSON.stringify(await getBlogs(cat)));
       }
       else{
-        console.log("all");
         setBlogs(JSON.stringify(await getBlogs()));
       }
     })();
@@ -31,7 +32,6 @@ export default function ArticleTemplate(){
     console.log("blogs", blogs);
     // setArticles(data);
     if(blogs){
-    
       setArticles((e:any[]):any=>JSON.parse(blogs).blogs);
       // console.log(JSON.parse(blogs).blogs);
       console.log(articles);
@@ -112,7 +112,7 @@ export default function ArticleTemplate(){
             </div>
              <span className="font-medium text-gray-600 capitalize">{`${article.author.given_name} ${article.author.family_name}`}</span>
            </Link>
-            <LikersButton/>
+            {Session?.user && <ReactionButtons blogId={article._id} user={Session.user} classes={"w-2/4 rounded-full"}/>}
          </div>
        </div>
  
@@ -122,43 +122,7 @@ export default function ArticleTemplate(){
     </>
     )
 }
-function LikersButton(){
-  const [downvote,setDownvote]=useState(false);
-  const [upvote,setUpvote]=useState(false);
-  const [share,setShare]=useState(false);
-  return (
-    <div className="relative top-2 flex justify-around max-w-[220px] rounded-full overflow-hidden border border-gray-300">
-    <button className="focus:bg-pink-400 focus:text-white flex text-sm items-center justify-center border-r border-gray-300 pr-2 py-2 w-1/2 h-full hover:bg-gray-300">
-        <svg 
-        width={"20px"} 
-        height={"20px"} 
-        viewBox="0 0 24 24" 
-        xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/></svg>
-        <h4>UP</h4>
-    </button>
-    <button className="focus:bg-red-400 focus:text-white flex text-sm items-center justify-center  border-r border-gray-300 pr-2 py-2 w-1/2 h-full hover:bg-gray-300">
-        <svg
-         className="rotate-180" 
-         width={"20px"} 
-         height={"20px"} 
-         viewBox="0 0 24 24" 
-         xmlns="http://www.w3.org/2000/svg">
-          <path d="M12.781 2.375c-.381-.475-1.181-.475-1.562 0l-8 10A1.001 1.001 0 0 0 4 14h4v7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7h4a1.001 1.001 0 0 0 .781-1.625l-8-10zM15 12h-1v8h-4v-8H6.081L12 4.601 17.919 12H15z"/>
-        </svg>
-        <h4>DoWn</h4>
-    </button>
-    <button className="focus:bg-blue-400 focus:text-white flex text-sm items-center justify-center pr-2 py-2 w-1/2 h-full hover:bg-gray-300">
-    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"/>
-            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"/>
-            <g id="SVGRepo_iconCarrier"> <path d="M4 12C4 13.3807 5.11929 14.5 6.5 14.5C7.88071 14.5 9 13.3807 9 12C9 10.6193 7.88071 9.5 6.5 9.5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"/> <path d="M14 6.5L9 10" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"/> <path d="M14 17.5L9 14" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"/> <path d="M16.5 21C17.8807 21 19 19.8807 19 18.5C19 17.1193 17.8807 16 16.5 16C15.1193 16 14 17.1193 14 18.5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"/> <path d="M18.665 6.74993C17.9746 7.94566 16.4457 8.35535 15.2499 7.66499C14.0542 6.97464 13.6445 5.44566 14.3349 4.24993C15.0252 3.0542 16.5542 2.64451 17.7499 3.33487" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"/> </g>
-    </svg>              
-    <h4>Share</h4>
-    </button>
-</div>
-  )
-}
+
 function ReportButton(){
   const [toggle,setToggle]=useState(true);
   function handleToggle(){
