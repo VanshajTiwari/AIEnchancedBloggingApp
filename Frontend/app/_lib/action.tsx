@@ -19,7 +19,7 @@ export async function upload(formData:FormData){
         url:"/cloudinary",
         data:{formData}
     });
-    console.log(data);
+    // // // console.log(data);
 }
 export async function signInAction(){
     await signIn('google',{redirectTo:`/`});    
@@ -54,12 +54,12 @@ export async function sendMail(formData:FormData){
 // Blogs
 export async function getBlogs(category:string|null=""){
     try{
-        // console.log("called");
+        // // // // console.log("called");
         const blogs=await axiosInstance({
             method:"GET",
             url:category==""?"/blog":`/blog?category=${category}`,
         });
-        // console.log(blogs);
+        // // // // console.log(blogs);
         return blogs.data.result; 
     }
     catch(err){
@@ -69,7 +69,7 @@ export async function getBlogs(category:string|null=""){
 }
 export async function addnewBlog(formData:FormData){
     try{
-        console.log(formData);
+        // // // console.log(formData);
         // const blogs=await axiosInstance({
         //     method:"POST",
         //     url:"/blog/addnew",
@@ -78,7 +78,7 @@ export async function addnewBlog(formData:FormData){
         // return blogs.data.status;
     }
     catch(err:any|Error){
-        console.log(err);
+        // // // console.log(err);
     }
 }
 export async function getBlogById(id:string|string[]){
@@ -87,11 +87,11 @@ export async function getBlogById(id:string|string[]){
             method:"GET",
             url:`/blog/byid/${id}`,
         });
-        // console.log(blogs.data);
+        // // // // console.log(blogs.data);
         return blogs.data.result.blogs;
     }
     catch(err:any|Error){
-        console.log(err);
+        // // // console.log(err);
     }
 }
 export async function getBlogByIdWithReviews(id:string|string[]){
@@ -100,11 +100,11 @@ export async function getBlogByIdWithReviews(id:string|string[]){
             method:"GET",
             url:`/blog/byid/${id}/withreviews`,
         });
-        // console.log(blogs.data);
+        // // // console.log(blogs.data);
         return blogs.data.result.blogs;
     }
     catch(err:any|Error){
-        console.log(err);
+        // // console.log(err);
     }
 }
 // review Actions
@@ -130,7 +130,7 @@ export async function createReview(rating: number, formData: FormData) {
     };
     await connection();
     const newReview = new reviewModel(review);
-    // console.log(newReview);
+    // // // console.log(newReview);
     await newReview.save(); // Ensure the review is saved
     
     return JSON.stringify({status:true,data:newReview});}
@@ -152,7 +152,7 @@ export async function getReview(postId:string){
     const session=await auth();
     if(session?.user._id){
         const review=await reviewModel.findOne({user:session?.user._id});
-        console.log(review);
+        // // console.log(review);
         return {status:true,review};
     }
     return {review:null};
@@ -209,7 +209,7 @@ export async function updateReviewsShare(postId:string){
             isShared:true
           });
         }
-        console.log(review);
+        // // // console.log(review);
         await review.save(); // ✅ Use await to ensure save completes
         return { status: true, message:"link copied"  };
       } catch (err: any) {
@@ -221,7 +221,7 @@ export async function updateReviewsShare(postId:string){
 
 export async function deleteReviewById(id:string){
     try{
-        console.log(id);
+        // // // console.log(id);
         await reviewModel.findByIdAndDelete(id);
         revalidatePath(`/post/${id}`);
         return {status:true,message:"Your Review Deleted!"}
@@ -268,9 +268,9 @@ export async function add_Details(bindedData:any,formData:FormData){
           addIfNotEmpty("username", username);
           addIfNotEmpty("bio", bio);
           addIfNotEmpty("gender", gender);
-        //   console.log(additionalValue);
+        //   // // // console.log(additionalValue);
           const newUser=await User.findByIdAndUpdate(userId,additionalValue,{new:true});
-          console.log(newUser);
+          // // // console.log(newUser);
           sendMailToAdmin({
             email:Session?.user.email!,
             fullname:Session?.user.name
@@ -293,7 +293,7 @@ export async function findUser(identifier:string){
         }
     }
     catch(err:any){
-        console.log(err.message);
+        // // // console.log(err.message);
         return {};
     }
 }
@@ -303,7 +303,7 @@ export async function findUserById(identifier:string){
             return await User.findById(identifier);
         }
     catch(err:any){
-        console.log(err.message);
+        // // // console.log(err.message);
         return {status:false,message:err.message};
     }
 }

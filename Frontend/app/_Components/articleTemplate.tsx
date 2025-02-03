@@ -107,12 +107,12 @@ export default function ArticleTemplate(){
              {article.desc}
            </p>
            <Link href="/user/vanshajt01" className="hover:underline text-md font-black flex gap-x-2 items-center text-gray-800">
-            <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden">
-                <Image fill src={article.author.profile_img} alt="avatar" quality={80} className="object-cover"/>
+            <div className="relative w-[30px] h-[30px] rounded-full overflow-hidden">
+                <Image fill src={article.author.profile_img} alt="avatar" quality={50} className="object-cover"/>
             </div>
-             <span className="font-medium text-gray-600 capitalize">{`${article.author.given_name} ${article.author.family_name}`}</span>
+             <span className="font-medium text-gray-600 capitalize">{`${article.author.fullname}`}</span>
            </Link>
-            {Session?.user && <ReactionButtons blogId={article._id} user={Session.user} classes={"w-2/4 rounded-full"}/>}
+            {Session?.user && <ReactionButtons blogId={article._id} user={Session.user} classes={"w-[250px] rounded-full"}/>}
          </div>
        </div>
  
