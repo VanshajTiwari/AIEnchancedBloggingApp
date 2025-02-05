@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import blogSchema from "../../db/blogModel";;
 import User from "../../db/userModel";
 
+
 export const getBlogByID=async (req:NextRequest,context:any)=>{
     const {id}=context.params;
     const blogs=await blogSchema.findById(id).populate("author");
@@ -23,23 +24,21 @@ export const getAllblogs=async (req:NextRequest,context:any)=>{
 };
 
 export const createNewBlog=async(req:NextRequest)=>{
-    const data=await req.json();
-    // console.log(data);
-
-    let {author}={author:"vanshajtiwari62@gmail.com"};//await req.json();
-    let user=await User.findOne({email:author})//author.email});
-    if(user){
-        author=user;
+    try{
+        const data=await req.json();
+        let user=await User.findOne({email:data.email})//author.email});
+        if(!user){
+            return NextResponse.json({status:false,Error:"Unauthorized"});
+        }
+        const {title,thumbnail,content,category,desc}=data;
+        const blog=new blogSchema({title,thumbnail,desc,content:JSON.parse(content),category,author:user._id});
+        await blog.save();
+        console.log(blog);
+        return NextResponse.json({status:true,result:{blog}}); 
     }
-    else{
-         let data:any=await User.create(author);
-         await data.save();
+    catch(err:any){
+        return NextResponse.json({status:false,Error:err.message});
     }
-    const {title,thumbnail,content,category,desc}=data;
-    const blog=new blogSchema({title,thumbnail,desc,content,category,author});
-    // console.log(blog);
-    await blog.save();
-    return NextResponse.json({status:"ok",result:{blog}});
 };
 
 export const editExistedBlog=async(req:NextRequest,context:any)=>{
@@ -49,9 +48,6 @@ export const editExistedBlog=async(req:NextRequest,context:any)=>{
     if(!blog){
         return NextResponse.json({status:"failed",error:"Not Found"});
     }
-    // if(NextResponse==null || blog.author!=NextResponse.id){
-    //     return NextResponse.json({status:"failed",error:"Unauthorized"});
-    // }
     blog.category=category;
     blog.content=content;
     blog.thumbnail=thumbnail;

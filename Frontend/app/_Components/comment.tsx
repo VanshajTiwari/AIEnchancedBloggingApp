@@ -11,9 +11,10 @@ export default function MakeComment({postid}:{postid:string}){
     const [rating,setRate]=useState(0);
     const modifiedFunc=createReview.bind(null,rating);
     
-    return(
-            <div className="flex w-full flex-col justify-center items-center">
-                <ReactionButtons blogId={postid} user={Session?.user!}/>
+    return(<>
+    
+            {Session?.user && <div className="flex w-full flex-col justify-center items-center">
+                <ReactionButtons blogId={postid} classes="text-md w-full justify-center"/>
                 <form action={modifiedFunc} className="h-[24em] px-4 w-full rounded-[12px] bg-white border">
                     <Rating rating={rating} setRate={setRate} allowed={true}/>
                     <p className="text-xl pt-2 font-semibold text-gray-900 cursor-pointer transition-all hover:text-black">
@@ -32,7 +33,8 @@ export default function MakeComment({postid}:{postid:string}){
                         <SubmitButton label="commenting..." classes="h-12 w-[150px] bg-black text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-gray-600">Submit</SubmitButton>
                     </div>   
                 </form>   
-            </div>
+            </div>}
+    </>
     )
 }
 

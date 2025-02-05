@@ -87,8 +87,8 @@ export default async function HomeNavbar(){
 
 export function Logo(){
   return   <div className="flex text-[25px] m-2 justify-center items-center relative -top-2">
-  <h1 className="--main--logo  -rotate-6">
+  <Link href="/" className="--main--logo  -rotate-6">
      <HiOutlinePaintBrush/><span>AI Enchance blogging</span>    
-  </h1>
+  </Link>
 </div>
 }

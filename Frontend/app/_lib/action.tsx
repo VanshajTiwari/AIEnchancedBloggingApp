@@ -67,18 +67,36 @@ export async function getBlogs(category:string|null=""){
         return "";
     }
 }
-export async function addnewBlog(formData:FormData){
+export async function uploadImage(file:FormData){
     try{
-        // // // console.log(formData);
-        // const blogs=await axiosInstance({
-        //     method:"POST",
-        //     url:"/blog/addnew",
-        //     // data:{data,author}
-        // });
-        // return blogs.data.status;
+        // Send the POST request with the file and the necessary headers
+        const response = await axiosInstance({
+          method: "POST", // POST method is more appropriate for file upload
+          url: "/blog/uploadImage", // Replace with your endpoint
+          data: file,
+          headers: {
+            "Content-Type": "multipart/form-data", // This is essential for file uploads
+          },
+        });
+    
+        // Return the uploaded image URL from the response
+        return response.data.data;
+    }
+    catch(err:any){
+        return {status:false,Error:err.message};
+    }
+}
+export async function addnewBlog(data:any){
+    try{
+        const blogs=await axiosInstance({
+            method:"POST",
+            url:"/blog/addnew",
+            data:data
+        });
+        return blogs.data.status;
     }
     catch(err:any|Error){
-        // // // console.log(err);
+        console.log(err);
     }
 }
 export async function getBlogById(id:string|string[]){
@@ -129,7 +147,13 @@ export async function createReview(rating: number, formData: FormData) {
         rating,
     };
     await connection();
-    const newReview = new reviewModel(review);
+    let newReview=await reviewModel.findOne({post:postId,user:userId});
+    if(newReview){
+        newReview.comment=review.comment;
+        newReview.rating=review.rating;
+    }
+    else
+     newReview = new reviewModel(review);
     // // // console.log(newReview);
     await newReview.save(); // Ensure the review is saved
     
@@ -151,7 +175,7 @@ export async function getReviewsbyBlogId(identifier:string){
 export async function getReview(postId:string){
     const session=await auth();
     if(session?.user._id){
-        const review=await reviewModel.findOne({user:session?.user._id});
+        const review=await reviewModel.findOne({post:postId,user:session?.user._id});
         // // console.log(review);
         return {status:true,review};
     }

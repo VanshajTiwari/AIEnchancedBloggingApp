@@ -42,10 +42,9 @@ export default function DetailView() {
                 <div className="flex justify-between px-2 mb-3">
                     <div className="flex gap-x-2 cursor-pointer hover:underline">
                         <span className="w-6 h-6 rounded-full bg-red-400 overflow-hidden relative">
-                            <Image
+                            <img
                                 src={blogData?.author?.profile_img}
                                 alt="avatar"
-                                fill
                                 className="h-full object-cover"
                             />
                         </span>
@@ -69,10 +68,13 @@ export default function DetailView() {
                         {sub.con_type === "heading" && (
                             <h1 className="capitalize relative font-bold left-4 text-[28px]">{sub.data}</h1>
                         )}
-                        {sub.con_type === "para" && (
+                        {sub.con_type === "paragraph" && (
                             <p className="text-[18px] text-gray-700 py-2 px-4">{sub.data}</p>
                         )}
-                        {sub.con_type === "image" && <img className="w-3/4" src={sub.data} />}
+                        {sub.con_type === "file" && <div className="w-full flex item-center justify-center">
+                            <img className="w-3/4" src={sub.data} />
+                            </div>
+                            }
                     </div>
                 ))}
             </div>

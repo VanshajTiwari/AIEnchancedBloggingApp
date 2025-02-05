@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getReview, updateReviewsShare, updateUpvoteDownvote } from "../_lib/action";
 import { toast } from "react-toastify";
 import { FaHeart,FaHeartBroken } from "react-icons/fa";
-export default function ReactionButtons({ blogId, user,classes }: { blogId: string; user: any ;classes?:string}) {
+export default function ReactionButtons({ blogId,classes }: { blogId: string;classes?:string}) {
   const [vote, setVote] = useState<boolean | null>(null);
 
   // Fetch initial vote state
@@ -10,6 +10,7 @@ export default function ReactionButtons({ blogId, user,classes }: { blogId: stri
     const fetchVoteStatus = async () => {
       try {
         const {review} = await getReview(blogId);
+        console.log(review);
         if (review!) {
           if (review.upvote) setVote(true);
           else if (review.downvote) setVote(false);
@@ -46,27 +47,27 @@ export default function ReactionButtons({ blogId, user,classes }: { blogId: stri
       {/* Upvote Button */}
       <button
         onClick={handleUpvote}
-        className={`flex text-sm items-center justify-around border-r border-gray-300 pr-2 py-2 w-1/3 h-full duration-200 
+        className={`flex text-sm items-center justify-around border-r border-gray-300 pl-2 pr-2 py-2 w-1/3 h-full duration-200 
         ${vote === true ? "bg-pink-400 text-white" : "hover:bg-gray-300"}`}
       >
         <FaHeart/>
-        <h4>UP</h4>
+        <h4>UVOTE</h4>
       </button>
 
       {/* Downvote Button */}
       <button
         onClick={handleDownvote}
-        className={`flex text-sm items-center justify-around border-r border-gray-300 pr-2 py-2 w-1/3 h-full duration-200 
+        className={`flex text-sm items-center justify-around border-r border-gray-300 pl-2 pr-2 py-2 w-1/3 h-full duration-200 
         ${vote === false ? "bg-red-400 text-white" : "hover:bg-gray-300"}`}
       >
         <FaHeartBroken/>
-        <h4>DOWN</h4>
+        <h4>DVote</h4>
       </button>
 
       {/* Share Button */}
       <button
         onClick={handleShare}
-        className={`flex text-sm items-center justify-around border-r border-gray-300 pr-2 py-2 w-1/3 h-full duration-200 `}
+        className={`flex text-sm items-center justify-around border-r border-gray-300 pl-2 pr-2 py-2 w-1/3 h-full duration-200 `}
       >
         <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 12C4 13.3807 5.11929 14.5 6.5 14.5C7.88071 14.5 9 13.3807 9 12C9 10.6193 7.88071 9.5 6.5 9.5" stroke="#000000" strokeWidth="1.5" strokeLinecap="round"/>
