@@ -5,7 +5,7 @@ import RecommendedArticle from "./recommededArticle";
 import Link from "next/link";
 export default function SideStories(){
     return(
-        <div className="flex flex-col w-[30%] p-3 dark:bg-black dark:text-gray-400 overflow-hidden">
+        <div className="flex flex-col w-full lg:w-[30%] p-3 dark:bg-black dark:text-gray-400 overflow-hidden">
         <h1 className="flex items-center text-[30px]  --main--logo" ><HiOutlinePaintBrush/>AI Enchance blogging</h1>
         <div>
           <p className="min-w-[200px] dark:text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus impedit, dicta aspernatur suscipit doloribus maiores tempore totam veritatis minima commodi!</p>
