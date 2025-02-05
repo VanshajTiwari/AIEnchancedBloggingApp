@@ -2,22 +2,22 @@ import BackgroundStyleFixed from '@/app/_Components/backgroundStyle';
 import Footer from '@/app/_Components/footer';
 import HomeNavbar, { Logo } from '@/app/_Components/navbar';
 import { signInAction, SignInActionGitHub } from '../_lib/action';
-export default function Page() {
 
-  return ( 
-    <main className="flex flex-col items-center ">
-    <BackgroundStyleFixed/>
-    <HomeNavbar/>
-    <section className="w-[1000px] rounded-lg shadow-2xl">
+export default function Page() {
+  return (
+    <main className="flex flex-col items-center">
+      <BackgroundStyleFixed />
+      <HomeNavbar />
+      <section className="w-[1000px] rounded-lg shadow-2xl">
         <div className="w-full bg-red-100 text-gray-900 flex justify-center">
           <div className=" bg-white shadow sm:rounded-lg flex justify-center flex-1">
             <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-              <Logo/>
+              <Logo />
               <div className="mt-12 flex flex-col items-center">
                 <h1 className="text-2xl xl:text-3xl font-extrabold">Sign up</h1>
                 <div className="w-full flex-1 mt-8">
                   <div className="flex flex-col items-center">
-                    <form action={signInAction} className='w-full'>
+                    <form action={signInAction} className="w-full">
                       <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                         <div className="bg-white p-2 rounded-full">
                           <svg className="w-4" viewBox="0 0 533.5 544.3">
@@ -42,7 +42,7 @@ export default function Page() {
                         <span className="ml-4">Sign Up with Google</span>
                       </button>
                     </form>
-                    <form action={SignInActionGitHub} className='w-full'>
+                    <form action={SignInActionGitHub} className="w-full">
                       <button className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
                         <div className="bg-white p-1 rounded-full">
                           <svg className="w-6" viewBox="0 0 32 32">
@@ -83,7 +83,7 @@ export default function Page() {
                       <span className="ml-3">Log In</span>
                     </button>
                     <p className="mt-6 text-xs text-gray-600 text-center">
-                      I agree to abide by templatana's
+                      I agree to abide by templatana&apos;s
                       <a href="#" className="border-b border-gray-500 border-dotted">
                         Terms of Service
                       </a>
@@ -106,8 +106,8 @@ export default function Page() {
             </div>
           </div>
         </div>
-    </section>
-    <Footer/>
-   </main>
-  )
+      </section>
+      <Footer />
+    </main>
+  );
 }

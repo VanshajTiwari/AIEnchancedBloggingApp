@@ -12,7 +12,7 @@ export default function Chatbot(){
     setIsOpen(!isOpen);
   };
 
-  const handleSend = (e) => {
+  const handleSend = (e:any) => {
     e.preventDefault();
     if (input.trim() === "") return;
 

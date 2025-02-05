@@ -7,6 +7,7 @@ import { getBlogs } from "../_lib/action";
 import Loading from "./loading";
 import ReactionButtons from "./reactionButtons";
 import { useSession } from "next-auth/react";
+import { FaPencil } from "react-icons/fa6";
 export default function ArticleTemplate(){
   const {data:Session}=useSession();
   const [blogs,setBlogs]=useState<string|undefined>();
@@ -55,16 +56,16 @@ export default function ArticleTemplate(){
           });
        return <>
        <div className="flex flex-col justify-center" key={index}>
-       <div className="relative w-full max-h-[400px] flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-2 mx-auto border border-white bg-white">
-         <div className="w-2/5 rounded-xl overflow-hidden max-h-[400px] rounded-xl bg-white">
+       <div className="relative w-full max-h-[400px] flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-2 mx-auto border-0 bg-white dark:bg-black">
+         <div className="w-2/5 rounded-xl overflow-hidden max-h-[400px] rounded-xl">
            <img
              src={article.thumbnail} 
              alt="article" 
              title={article.title}
-             className="h-full w-full object-cover --article--pic"
+             className="h-full w-full object-cover --article--pic "
            />
          </div>
-         <div className="w-full md:3/5 bg-white flex flex-col space-y-2 py-2">
+         <div className="w-full md:3/5 flex flex-col space-y-2 py-2">
            <div className="flex justify-between items-center">
              <Link href={`/post?category=${article.category}`} className="text-gray-500 font-medium hidden md:block uppercase">{article.category}</Link>
              <div className="flex items-center">
@@ -100,13 +101,13 @@ export default function ArticleTemplate(){
              </div>
           <ReportButton/>
            </div>
-           <Link   href={`post/${article._id}`} className="hover:underline font-black capitalize text-gray-800 md:text-3xl text-xl">
+           <Link   href={`post/${article._id}`} className="dark:text-gray-400 hover:underline template--title capitalize text-gray-800 md:text-3xl text-xl">
              {article.title}            
            </Link>
-           <p className="md:text-lg text-gray-500 text-base line-clamp-3">
+           <p className="md:text-lg text-gray-500 font-medium text-base line-clamp-3">
              {article.desc}
            </p>
-           <Link href="#" className="hover:underline text-md font-black flex gap-x-2 items-center text-gray-800">
+           <Link href="#" className="hover:underline text-md flex gap-x-2 items-center text-gray-800">
             <div className="relative w-[30px] h-[30px] rounded-full overflow-hidden">
                 <img src={article.author.profile_img} alt="avatar" className="w-full h-full object-cover"/>
             </div>
@@ -129,19 +130,21 @@ function ReportButton(){
     setToggle(!toggle);
   }
   return <div className=" reltive flex flex-col items-end">
-               <button onClick={handleToggle} className="bg-gray-200 relative text-center font-bold  p-2 rounded-md hover:bg-gray-300 active:bg-gray-300">
+            <button onClick={handleToggle} className="bg-gray-200 relative text-center font-bold  p-2 rounded-md hover:bg-gray-300 active:bg-gray-300">
              <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="12px" viewBox="0 0 24 24" fill="none" className="">
                  <circle cx="5" cy="12" r="2" stroke="#1C274C" strokeWidth="1.5"/>
                  <circle cx="12" cy="12" r="2" stroke="#1C274C" strokeWidth="1.5"/>
                  <circle cx="19" cy="12" r="2" stroke="#1C274C" strokeWidth="1.5"/>
              </svg>
-             </button>
-             <ReportMenu show={toggle}/>
+            </button>
+            <ReportMenu show={toggle}/>
   </div>
 }
 
 function ReportMenu({show}:{show:boolean}){
-  return <div className={`absolute top-9 shadow-lg  p-2 ${show?"hidden":""}` }  >
-    <button className="text-red-500 border-t-2 border-red-400">Report!</button>
+  return <div className={`absolute top-10 shadow-lg  p-2 ${show?"hidden":""}` }  >
+    <button className="edit--btn flex item-center justify-center gap-x-2 swalling border-t-2 border-black py-1"><FaPencil/>Edit</button>
+    <button className="text-red-500 border-t-2 border-red-400">Report <span className="rounded-full border-red-400 border h-1 w-1">!</span></button>
+    
   </div>
 }

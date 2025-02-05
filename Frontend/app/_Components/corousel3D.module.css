@@ -58,7 +58,7 @@
     background: rgba(0, 0, 0, 0.1);
     opacity: 0;
   }
-  #slide1:hover::before{
+  /* #slide1:hover::before{
     content: "";
     position: absolute;
     width: 100%;
@@ -66,7 +66,7 @@
     background-color: orange;
     opacity: 0.2;
     border-radius: 4px;
-  }
+  } */
   #slide2:hover::before{
     content: "";
     position: absolute;
@@ -118,8 +118,34 @@
     transform: translate3d(30%,0,-200px);
   }
   
-  #slide1 { background: #00BCD4 ;width:100px; height: 100px;}
+  /* #slide1 { background: #00BCD4 ;width:100px; height: 100px;}
   #slide2 { background: #4CAF50 ;width:100px; height: 100px;}
   #slide3 { background: #CDDC39 ;width:100px; height: 100px;}
   #slide4 { background: #FFC107 ;width:100px; height: 100px;}
-  #slide5 { background: #FF5722 ;width:100px; height: 100px;}
+  #slide5 { background: #FF5722 ;width:100px; height: 100px;} */
+  .image {
+    position: relative;  /* Helps inset shadow */
+    transition: 0.5s;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.image p {
+    position: absolute; /* Prevents affecting layout */
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.8s;
+    font-size: 2rem;
+    color: #fff;
+}
+
+.image:hover {
+    box-shadow: 0 0 0 300px rgba(0, 0, 0, 0.6) inset;
+}
+
+.image:hover p {
+    opacity: 1;
+    transform: scale(1);
+}

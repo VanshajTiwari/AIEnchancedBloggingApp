@@ -15,7 +15,7 @@ const Context=createContext<globalContextInteface|null>(null);
 
 export const GlobalContextProvider=({children}:{children:React.ReactNode})=>{
     const [pathname,setpathname]=useState(null);
-    const [theme,setTheme]=useState<Theme>("light");
+    const [theme,setTheme]=useState<Theme>("dark");
     const [currentBlog,setCurrentBlog]=useState({});
     // const [other,setOther]=useState(null);
     return <Context.Provider value={{pathname,currentBlog,setCurrentBlog,setpathname,theme,setTheme}}>

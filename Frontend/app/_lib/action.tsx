@@ -176,8 +176,11 @@ export async function getReview(postId:string){
     const session=await auth();
     if(session?.user._id){
         const review=await reviewModel.findOne({post:postId,user:session?.user._id});
+        if(!review){
+            return {status:true,review};
+        }
         // // console.log(review);
-        return {status:true,review};
+        return {status:true,review:{upvote:review.upvote,downvote:review.downvote,isShared:review.isShared}};
     }
     return {review:null};
 }

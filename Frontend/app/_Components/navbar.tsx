@@ -39,7 +39,7 @@ export default async function HomeNavbar(){
               <Link href={"/signin"} className="uppercase bg-black text-white rounded-lg px-3 py-1 text-[15px] swalling">SignUp</Link>}
             </div>
         </div>
-        <div className="w-full">
+        <div className="w-full dark:text-gray-300">
           <ol className="flex justify-center gap-x-10 --sub-heading text-gray-600">
           {user && <li className="relative -top-2"><Link href="/post/addpost" className="px-4 py-2 flex items-center justify-center  rounded-md border border-gray-300 hover:shadow-md border-black text-black font-bold"><HiOutlinePaintBrush/>Post</Link></li>}
           {user && <li className={`nav-sub-heading uppercase hover:scale-125 ${""}`}><Link href="/">For You</Link></li>}
@@ -64,7 +64,7 @@ export default async function HomeNavbar(){
                     <span>CATEGORIES</span>
                     <IoIosArrowDown className="font-light icon-drop-down"/>
                 </div>
-                <ol className="drop-down-options options2 flex flex-col absolute z-[10] bg-white px-3 capitalize rounded-b-md h-0 overflow-hidden">
+                <ol className=" drop-down-options options2 flex flex-col absolute z-[10] bg-white px-3 capitalize rounded-b-md h-0 overflow-hidden">
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=science">Science</Link></li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=cyber">Cyber</Link></li>
                   <li className="hover:bg-gray-300 hover:font-bold swalling p-2 cursor-pointer rounded-md"><Link href="/post?category=health">Health</Link></li>
@@ -86,7 +86,7 @@ export default async function HomeNavbar(){
 }
 
 export function Logo(){
-  return   <div className="flex text-[25px] m-2 justify-center items-center relative -top-2">
+  return   <div className={`flex text-[25px] m-2 justify-center items-center relative -top-2`}>
   <Link href="/" className="--main--logo  -rotate-6">
      <HiOutlinePaintBrush/><span>AI Enchance blogging</span>    
   </Link>

@@ -9,7 +9,7 @@ import { auth } from "./_lib/auth";
 import NextTopLoader from 'nextjs-toploader';
 import { GlobalContextProvider } from "./_Components/Context/globalContext";
 // import {} from "./_Components/Context/globalContext";
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] , display: 'swap', adjustFontFallback: false})
 
 export const metadata: Metadata = {
   title: "AI Enchance blogging",
