@@ -5,11 +5,10 @@ import { toast } from 'react-hot-toast';
 import { BiTrash } from "react-icons/bi";
 import { addnewBlog } from "../_lib/action";
 import ImagePreviewPlusLoader from "./imagePreviewPlusLoader";
-import { redirect } from "next/navigation";
 import SubmitButton from "./submitButton";
 
 export default function PostEditor() {
-  const { data: Session, status } = useSession();
+  const { data: Session } = useSession();
   const user = Session?.user;
   const [content, setContent] = useState<any>([]);
   const [nextId, setNextId] = useState(1);
@@ -19,8 +18,7 @@ export default function PostEditor() {
   const [category, setCategory] = useState("");
   const [draggingIndex, setDraggingIndex] = useState<null | number>(null);
 
-  const addComponent = (con_type: string, event: React.MouseEvent) => {
-    event.preventDefault(); // ✅ Prevent page refresh
+  const addComponent = (con_type: string) => {
     setContent((prevContent: any) => [...prevContent, { id: nextId, con_type, data: "" }]);
     setNextId((prevId) => prevId + 1);
   };
@@ -37,126 +35,109 @@ export default function PostEditor() {
     );
   };
 
-  const handleDragStart = (index: number) => {
-    setDraggingIndex(index);
-  };
-
-  const handleDragOver = (event: React.DragEvent, index: number) => {
-    event.preventDefault();
-    if (draggingIndex === null || draggingIndex === index) return;
-
-    const updatedContent = [...content];
-    const [draggedItem] = updatedContent.splice(draggingIndex, 1);
-    updatedContent.splice(index, 0, draggedItem);
-
-    setDraggingIndex(index);
-    setContent(updatedContent);
-  };
-
-  const handleDragEnd = () => {
-    setDraggingIndex(null);
-  };
-
-  // 🛠 Fixed form submission logic
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const postData: any = {
       title,
-      description: desc,
+      desc,
       category,
-      content: JSON.stringify(content), // ✅ Ensure JSON is formatted correctly
+      content: JSON.stringify(content),
       thumbnail,
-      email:Session?.user.email
+      email: Session?.user.email,
     };
 
-    console.log("Submitting Post Data:", postData);
-
     try {
-      const status=await addnewBlog(postData);
+      await addnewBlog(postData);
+      toast.success("Post added successfully!");
     } catch (error) {
-      console.error("Error adding post:", error);
       toast.error("Error adding post");
     }
   };
 
-  useEffect(() => {
-    console.log("Updated Content:", content);
-  }, [content]);
-
   return (
-    <form onSubmit={handleSubmit} className="w-full p-4 bg-white rounded-md shadow-md duration-400">
-      {/* Category, Title, Thumbnail, Description Inputs */}
-      <div className="mb-4">
-        <label htmlFor="category" className="block mb-2 font-bold">Category:</label>
-        <select
-          id="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-full p-2 border rounded-md"
-          required
-        >
-          <option value="" disabled>Select a category</option>
-          <option value="science">Science</option>
-        </select>
+    <>
+    <h1 className="text-2xl font-bold text-center mb-6 text-gray-100 dark:text-gray-500" style={{fontFamily:"Bebas"}}>Write & Publish Your Blog</h1>
+
+    <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto p-6 bg-gray-50 dark:bg-gray-300 rounded-lg shadow-md">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block font-bold">Category:</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full p-2 border rounded-md"
+            required
+          >
+            <option value="" disabled>Select a category</option>
+            <option value="science">Science</option>
+          </select>
+        </div>
+        <div>
+          <label className="block font-bold">Title:</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-2 border rounded-md"
+            required
+          />
+        </div>
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="title" className="block mb-2 font-bold">Title:</label>
+      <div className="mt-4">
+        <label className="block font-bold">Thumbnail URL:</label>
         <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter your title"
-          className="w-full p-2 border rounded-md"
-          required
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="thumbnail" className="block mb-2 font-bold">Thumbnail URL:</label>
-        <input
-          id="thumbnail"
           type="text"
           value={thumbnail}
           onChange={(e) => setThumbnail(e.target.value)}
-          placeholder="Enter thumbnail URL"
           className="w-full p-2 border rounded-md"
           required
         />
       </div>
 
-      <div className="mb-4">
-        <label htmlFor="desc" className="block mb-2 font-bold">Description:</label>
+      <div className="mt-4">
+        <label className="block font-bold">Description:</label>
         <textarea
-          id="desc"
           value={desc}
+          name="desc"
           onChange={(e) => setDesc(e.target.value)}
-          placeholder="Enter a brief description..."
           className="w-full p-2 border rounded-md"
           required
         />
       </div>
 
-      {/* Add Components (Heading, Paragraph, Image) */}
-      <div className="mb-4">
-        <button type="button" onClick={(e) => addComponent("heading", e)} className="mr-2 bg-yellow-500 text-white p-2 rounded-md">Add Heading</button>
-        <button type="button" onClick={(e) => addComponent("paragraph", e)} className="mr-2 bg-yellow-500 text-white p-2 rounded-md">Add Paragraph</button>
-        <button type="button" onClick={(e) => addComponent("file", e)} className="bg-yellow-500 text-white p-2 rounded-md">Add Image</button>
+      <div className="flex flex-wrap gap-2 mt-4">
+        <button 
+          type="button" 
+          onClick={() => addComponent("heading")} 
+          className="bg-blue-500 text-white px-4 py-2 rounded-md transition transform active:scale-95"
+        >
+          Add Heading
+        </button>
+
+        <button 
+          type="button" 
+          onClick={() => addComponent("paragraph")} 
+          className="bg-blue-500 text-white px-4 py-2 rounded-md transition transform active:scale-95"
+        >
+          Add Paragraph
+        </button>
+
+        <button 
+          type="button" 
+          onClick={() => addComponent("file")} 
+          className="bg-blue-500 text-white px-4 py-2 rounded-md transition transform active:scale-95"
+        >
+          Add Image
+        </button>
       </div>
 
-      <div className="mb-4">
-        {content.map((item: any, index: number) => (
-          <div
-            key={item.id}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={(e) => handleDragOver(e, index)}
-            onDragEnd={handleDragEnd}
-            className="mb-2 border p-4"
-          >
-            <h4 className="text-lg font-semibold">Component {item.id}</h4>
+
+      <div className="mt-4 space-y-4">
+        {content.map((item: any) => (
+          <div key={item.id} className="border p-4 rounded-md">
+            <h4 className="font-semibold">Component {item.id}</h4>
             {item.con_type === "heading" && (
               <input
                 type="text"
@@ -165,7 +146,6 @@ export default function PostEditor() {
                 className="w-full p-2 border rounded-md"
               />
             )}
-
             {item.con_type === "paragraph" && (
               <textarea
                 value={item.data}
@@ -173,25 +153,20 @@ export default function PostEditor() {
                 className="w-full p-2 border rounded-md"
               />
             )}
-
             {item.con_type === "file" && (
               <ImagePreviewPlusLoader item={item} updateComponentValue={updateComponentValue} />
             )}
-
-            <button
-              type="button"
-              onClick={() => removeComponent(item.id)}
-              className="text-red-500"
-            >
+            <button type="button" onClick={() => removeComponent(item.id)} className="text-red-500 flex items-center gap-1 mt-2">
               <BiTrash /> Remove
             </button>
           </div>
         ))}
       </div>
 
-      <div className="text-center">
+      <div className="mt-6 text-center">
         <SubmitButton successMsg="Data sent!" label="Uploading...">Submit Post</SubmitButton>
       </div>
     </form>
+    </>
   );
 }

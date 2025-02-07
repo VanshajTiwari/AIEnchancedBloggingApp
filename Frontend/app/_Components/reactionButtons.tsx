@@ -11,7 +11,7 @@ export default function ReactionButtons({ blogId,classes }: { blogId: string;cla
     const fetchVoteStatus = async () => {
       try {
         const {review} = await getReview(blogId);
-        console.log(review);
+        // console.log(review);
         if (review!) {
           if (review.upvote) setVote(true);
           else if (review.downvote) setVote(false);

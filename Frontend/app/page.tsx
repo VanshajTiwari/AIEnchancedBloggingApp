@@ -11,12 +11,12 @@ export default function Home() {
       <BackgroundStyleFixed/>
       <HomeNavbar/>
       <header className="w-full flex flex-col items-center">
-          <div className="w-3/4 flex justify-center">
+          <div className="w-3/4 md:h-[500px] md:h-[500px] flex justify-center">
             <Corousel3D/>
           </div>
       </header>
-      <section className="lg:flex bg-white mt-12 w-[95%] rounded-md overflow-hidden">
-          <div className="bg-yellow-400 w-full dark:bg-gray-500 lg:w-[75%]">
+      <section className="lg:flex bg-white mt-24 lg:mt-12 w-[95%] h-auto rounded-md overflow-hidden">
+          <div className="bg-yellow-400 w-full dark:bg-gray-500 pb-10 h-auto lg:w-[75%]">
               <h1 className="text-[35px] relative left-12 top-6" style={{fontFamily:"Bebas"}}>Latest articles</h1>
               <div className="relative top-6 flex flex-col gap-y-4 mx-[5%] soft">
                     <ArticleTemplate />
