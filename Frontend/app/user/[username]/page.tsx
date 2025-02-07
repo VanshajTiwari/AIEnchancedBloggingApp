@@ -1,6 +1,6 @@
 import BackgroundStyleFixed from '@/app/_Components/backgroundStyle';
 import React from 'react';
-import {Cards,FeatureList} from './cards';
+import {Cards} from './cards';
 import { auth } from '@/app/_lib/auth';
 import { Session } from 'next-auth';
 import { findUserById } from '@/app/_lib/action';
@@ -11,7 +11,7 @@ const ProfileCard =async () => {
   return (
     <>
     <BackgroundStyleFixed/>
-    <div className="bg-gray-200 w-10/12 mx-auto mt-4 rounded shadow-xl overflow-hidden">
+    <div className="bg-gray-200 md:w-10/12 w-full mx-auto relative shadow-xl overflow-hidden">
       <div className="h-[140px] bg-black "></div>
       <div className="px-5 py-2 flex flex-col gap-3 pb-6">
         <div className="min-h-[150px] min-w-[150px] shadow-md w-[90px] rounded-full border-4 overflow-hidden -mt-20 border-white">
@@ -87,7 +87,6 @@ const ProfileCard =async () => {
           <h4 className="text-lg font-medium pt-4 uppercase leading-3">Trending Blogs</h4>
           <Cards/>
           <h4 className="text-xl font-medium pt-4 uppercase leading-3">Other Blogs</h4>
-          <FeatureList/>
         </div>
       </div>
     </div>

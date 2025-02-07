@@ -1,156 +1,164 @@
 "use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 
-import { useEffect, useRef, useState } from "react";
-import style from "./corousel3D.module.css";
-import img1 from "./../../public/img/landscape/landscape (1).jpg";
-import img2 from "./../../public/img/landscape/landscape (2).jpg";
-import img3 from "./../../public/img/landscape/landscape (3).jpg";
-import img4 from "./../../public/img/landscape/landscape (4).jpg";
-import img5 from "./../../public/img/landscape/landscape (5).jpg";
+interface Blog {
+  id: number;
+  title: string;
+  date: string;
+  image: string;
+  content: string;
+}
 
-export default function Corousel3D() {
-  const [selectedOption, setOption] = useState(3);
-  const carouselRef = useRef<HTMLDivElement>(null);
+const blogs: Blog[] = [
+  {
+    id: 1,
+    title: "Raj Mysteries",
+    date: "12 November 2025",
+    image: "/img/landscape/landscape (1).jpg",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi magni ex illum a, consequatur neque?",
+  },
+  {
+    id: 2,
+    title: "The Hidden Truth",
+    date: "25 December 2025",
+    image: "/img/landscape/landscape (2).jpg",
+    content:
+      "Another deep mystery unfolds. Discover the truth hidden behind the veil of secrets...",
+  },
+  {
+    id: 3,
+    title: "Unsolved Enigma",
+    date: "1 January 2026",
+    image: "/img/landscape/landscape (3).jpg",
+    content:
+      "A case that defies all logic. Will you be able to uncover what truly happened?",
+  },
+  {
+    id: 4,
+    title: "Raj Mysteries",
+    date: "12 November 2025",
+    image: "/img/landscape/landscape (4).jpg",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi magni ex illum a, consequatur neque?",
+  },
+  {
+    id: 5,
+    title: "Raj Mysteries",
+    date: "12 November 2025",
+    image: "/img/landscape/landscape (5).jpg",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi magni ex illum a, consequatur neque?",
+  },
+];
 
-  function restrictFunction(value: number) {
-    if (value === -1) value = 4;
-    setOption(value % 5);
-  }
-
-  function handleNext() {
-    restrictFunction(selectedOption + 1);
-  }
-
-  function handlePrev() {
-    restrictFunction(selectedOption - 1);
-  }
+export default function BlogSlider() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-      },
-      { threshold: 0.1 }
-    );
-
-    if (carouselRef.current) {
-      observer.observe(carouselRef.current);
-    }
-
-    return () => {
-      if (carouselRef.current) {
-        observer.unobserve(carouselRef.current);
+    const interval = setInterval(() => {
+      if (!isPaused) {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % blogs.length);
       }
-    };
-  }, []);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % blogs.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + blogs.length) % blogs.length);
+  };
 
   return (
-    <div ref={carouselRef} className="w-full flex">
+    <div
+      className="relative w-full flex flex-col items-center gap-6 py-6"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+    <div className="w-[90%]">
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={blogs[currentIndex].id}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="w-full flex lg:flex-row flex-col justify-center mx-auto max-w-5xl bg-white shadow-md rounded-md overflow-hidden"
+        >
+          {/* Image Section */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative w-full lg:w-[70%] h-full max-h-[500px] md:h-full"
+          >
+            <img
+              src={blogs[currentIndex].image}
+              alt="Blog Image"
+              
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* Content Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative pb-14 pl-4 pt-3 w-full lg:w-[30%] bg-blue-900 text-gray-200 rounded-md md:rounded-l-none md:rounded-r-md"
+          >
+            <h1 className="text-3xl font-bold" style={{ fontFamily: "Bebas" }}>
+              {blogs[currentIndex].title}
+            </h1>
+            <span className="text-gray-300">{blogs[currentIndex].date}</span>
+            <p className="lg:line-clamp-[6] md:line-clamp-[4] line-clamp-3 w-11/12 text-gray-300 font-light">
+              {blogs[currentIndex].content}
+            </p>
+
+            {/* User Section */}
+            <div className="absolute bottom-4 flex items-center gap-x-2">
+              <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                <img
+                  src={session?.user?.image || "/img/users/user.jpg"}
+                  alt="User Avatar"
+                  width={30}
+                  height={30}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="font-medium text-gray-200 capitalize">
+                {session?.user?.name || "Guest"}
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
+      </div>
+
+      {/* Navigation Buttons */}
       <button
-        className="text-white text-4xl bg-gray-500 px-2 rounded-md"
-        onClick={handlePrev}
+        onClick={prevSlide}
+        className="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition"
       >
-        &larr;
+        <IoIosArrowBack size={24} />
       </button>
 
-      <section id={style.slider} className="w-full items-center justify-center">
-        <input
-          type="radio"
-          name="slider"
-          value={0}
-          id={style.s1}
-          checked={selectedOption === 0}
-          onClick={() => restrictFunction(1)}
-          onChange={() => {}}
-          className="hidden"
-        />
-        <input
-          type="radio"
-          name="slider"
-          value={1}
-          id={style.s2}
-          checked={selectedOption === 1}
-          onClick={() => restrictFunction(2)}
-          onChange={() => {}}
-          className="hidden"
-        />
-        <input
-          type="radio"
-          name="slider"
-          value={2}
-          id={style.s3}
-          checked={selectedOption === 2}
-          onClick={() => restrictFunction(3)}
-          onChange={() => {}}
-          className="hidden"
-        />
-        <input
-          type="radio"
-          name="slider"
-          value={3}
-          id={style.s4}
-          checked={selectedOption === 3}
-          onClick={() => restrictFunction(4)}
-          onChange={() => {}}
-          className="hidden"
-        />
-        <input
-          type="radio"
-          name="slider"
-          value={4}
-          id={style.s5}
-          checked={selectedOption === 4}
-          onClick={() => restrictFunction(5)}
-          onChange={() => {}}
-          className="hidden"
-        />
-        <label htmlFor="s1" id={style.slide1} className="rounded-sm">
-          <div
-            className={`${style.image} w-full h-full flex justify-center`}
-            style={{ backgroundImage: `url("${img1.src}")` }}
-          >
-            <p className="px-[200px]">100 Different Tamoto Recipe.</p>
-          </div>
-        </label>
-        <label htmlFor="s2" id={style.slide2} className="rounded-sm">
-          <div
-            className={`${style.image} w-full h-full flex item-center justify-center`}
-            style={{ backgroundImage: `url("${img2.src}")` }}
-          >
-            <p className="px-[200px]">New Generation Cyber Alert</p>
-          </div>
-        </label>
-        <label htmlFor="s3" id={style.slide3} className="rounded-sm">
-          <div
-            className={`${style.image} w-full h-full flex item-center justify-center`}
-            style={{ backgroundImage: `url("${img3.src}")` }}
-          >
-            <p className="px-[200px]">Secrets of Bhagwan Jagannath</p>
-          </div>
-        </label>
-        <label htmlFor="s4" id={style.slide4} className="rounded-sm">
-          <div
-            className={`${style.image} w-full h-full flex item-center justify-center`}
-            style={{ backgroundImage: `url("${img4.src}")` }}
-          >
-            <p className="px-[200px]">Taj Mahal or Shiv Mandir</p>
-          </div>
-        </label>
-        <label htmlFor="s5" id={style.slide5} className="rounded-sm">
-          <div
-            className={`${style.image} w-full h-full flex item-center justify-center`}
-            style={{ backgroundImage: `url("${img5.src}")` }}
-          >
-            <p className="px-[200px]">Benefits of Reading Books</p>
-          </div>
-        </label>
-      </section>
-
       <button
-        className="text-white text-4xl bg-gray-500 px-2 rounded-md"
-        onClick={handleNext}
+        onClick={nextSlide}
+        className="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600 transition"
       >
-        &rarr;
+        <IoIosArrowForward size={24} />
       </button>
     </div>
   );
