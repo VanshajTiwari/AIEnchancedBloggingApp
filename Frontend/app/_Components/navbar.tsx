@@ -7,7 +7,6 @@ import { FaXTwitter } from "react-icons/fa6";
 import { HiOutlinePaintBrush } from "react-icons/hi2";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoSearchOutline, IoMenu, IoClose } from "react-icons/io5";
-import { auth } from "../_lib/auth";
 import SignOutBtn from "./signOutButton";
 import { useSession } from "next-auth/react";
 
@@ -62,10 +61,10 @@ export default function HomeNavbar() {
 
       {/* Navigation Links */}
       <div className={`w-full ${menuOpen ? "block" : "hidden"} md:flex justify-center dark:text-gray-300`}>
-        <ol className="flex flex-col md:flex-row justify-center gap-x-10 --sub-heading text-gray-600">
+        <ol className="relative top-2 bg-gray-800 md:bg-transparent py-2 flex flex-col md:flex-row items-center gap-y-2 justify-center gap-x-10 --sub-heading text-gray-600">
           {user && (
-            <li className="relative -top-2">
-              <Link href="/post/addpost" className="px-4 py-2 flex items-center justify-center rounded-md border border-gray-300 hover:shadow-md border-black text-black font-bold">
+            <li className="relative">
+              <Link href="/post/addpost" className="px-4 py-2 max-w-[150px] flex items-center justify-center rounded-md border border-gray-300 hover:shadow-md border-black text-black font-bold">
                 <HiOutlinePaintBrush /> Post
               </Link>
             </li>
@@ -116,9 +115,14 @@ export default function HomeNavbar() {
 
 export function Logo() {
   return (
-    <div className="flex text-[25px] m-2 justify-center items-center relative -top-2">
-      <Link href="/" className="--main--logo -rotate-6">
-        <HiOutlinePaintBrush /><span>AI Enhanced Blogging</span>
+    <div className="flex text-[25px] justify-center items-center relative px-2">
+      <Link href="/" className="--main--logo px-2 border md:border-0 rounded-md md:rounded-sm md:-rotate-6">
+        <HiOutlinePaintBrush className=""/>
+        <span className="flex gap-x-2 flex-wrap">
+          <span className="hidden md:block">AI</span> 
+          <span className="hidden md:block">Enhanced</span>
+          <span>Blogging</span>
+        </span>
       </Link>
     </div>
   );

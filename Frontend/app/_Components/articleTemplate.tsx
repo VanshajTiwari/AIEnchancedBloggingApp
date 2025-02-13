@@ -7,7 +7,7 @@ import { getBlogs } from "../_lib/action";
 import Loading from "./loading";
 import ReactionButtons from "./reactionButtons";
 import { useSession } from "next-auth/react";
-import { FaPencil } from "react-icons/fa6";
+import { FaPencil, FaTrash } from "react-icons/fa6";
 export default function ArticleTemplate(){
   const {data:Session}=useSession();
   const [blogs,setBlogs]=useState<string|undefined>();
@@ -30,13 +30,12 @@ export default function ArticleTemplate(){
     })();
   },[blogs,queryString.get("category")]);
   useEffect(()=>{
-    // console.log("blogs", blogs);
     // setArticles(data);
     if(blogs){
-      setArticles((e:any[]):any=>JSON.parse(blogs).blogs);
+      setArticles((e:any[]):any=>JSON.parse(blogs));
       // console.log(JSON.parse(blogs).blogs);
       // console.log(articles);
-      if(articles && articles.length==0){
+      if(!articles || articles.length==0){
         setError("Internal Server Error");
       }
       else{
@@ -47,7 +46,7 @@ export default function ArticleTemplate(){
     return(
         <>
         {(ErrorMessage!="" || articles.length==0)?<div className="w-full flex justify-center items-center text-[20px] ">{ErrorMessage==""?<Loading/>:<h1 className="text-red-600 font-bold relative  top-4">{`Internal Sever ERROR :(`}</h1>}</div>
-        :articles.map((article:any,index:number)=>{
+        :articles.map((article:any)=>{
           const date=new Date(article.createdAt);
           const formattedDate = date.toLocaleDateString('en-GB', {
             day: '2-digit',
@@ -55,8 +54,8 @@ export default function ArticleTemplate(){
             year: 'numeric',
           });
        return <>
-       <div className="flex flex-col justify-center h-auto" key={index}>
-       <div className="relative w-full max-h-[400px] flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-2 mx-auto border-0 bg-white dark:bg-black">
+       <div className="flex flex-col justify-center h-auto" key={article._id}>
+       <div className="relative w-full max-h-[400px] flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-2 mx-auto border-0 bg-white dark:bg-gray-800">
          <div className="w-2/5 rounded-xl overflow-hidden max-h-[400px] rounded-xl">
            <img
              src={article.thumbnail} 
@@ -99,7 +98,7 @@ export default function ArticleTemplate(){
              <div className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
                Superhost
              </div>
-          <ReportButton/>
+          {Session?.user && <ReportButton user={article.author} Session={Session?.user}/>}
            </div>
            <Link   href={`post/${article._id}`} className="dark:text-gray-400 hover:underline template--title capitalize text-gray-800 md:text-3xl text-xl">
              {article.title}            
@@ -113,7 +112,7 @@ export default function ArticleTemplate(){
             </div>
              <span className="font-medium text-gray-600 capitalize">{`${article.author.fullname}`}</span>
            </Link>
-            {Session?.user && <ReactionButtons blogId={article._id} classes={"w-[250px] rounded-full"}/>}
+            {Session?.user && <ReactionButtons key={article._id} blogId={article._id} classes={"w-[250px] rounded-full"}/>}
          </div>
        </div>
  
@@ -124,7 +123,7 @@ export default function ArticleTemplate(){
     )
 }
 
-function ReportButton(){
+function ReportButton({user,Session}:{Session:any;user:any}){
   const [toggle,setToggle]=useState(true);
   function handleToggle(){
     setToggle(!toggle);
@@ -137,14 +136,15 @@ function ReportButton(){
                  <circle cx="19" cy="12" r="2" stroke="#1C274C" strokeWidth="1.5"/>
              </svg>
             </button>
-            <ReportMenu show={toggle}/>
+            <ReportMenu user={user} Session={Session} show={toggle}/>
   </div>
 }
 
-function ReportMenu({show}:{show:boolean}){
+function ReportMenu({show,user,Session}:{Session:any;user:any;show:boolean}){
   return <div className={`absolute flex flex-col items-center top-11 border border-gray-500 shadow-lg ${show?"hidden":""}` }  >
-    <button className="edit--btn dark:text-white flex text-center flex gap-x-2 border-gray-400 px-2 border-t-2 border-black py-2"><FaPencil/>Edit</button>
-    <button className="bg-gray-300 px-2 dark:bg-black text-red-500 border-t-2 border-red-400 py-2"><span className="rounded-full border-red-400 border mr-2 h-1 w-1 px-3 py-1">!</span>Report</button>
+    {user.email==Session.email && <button className="edit--btn hover:bg-gray-400 p-6 dark:text-white flex text-center flex gap-x-2 border-gray-400 border-t-2 border-black py-2"><FaPencil/>Edit</button>}
+    {user.email==Session.email && <button className="edit--btn hover:bg-gray-400 p-4 text-red-500 flex text-center flex gap-x-2 border-gray-400 border-t-2 border-black py-2"><FaTrash/>Delete</button>}
+    <button className="bg-gray-300 px-2 dark:bg-black text-red-500 hover:bg-gray-400 border-t-2 border-red-400 py-2"><span className="rounded-full border-red-400 border mr-2 h-1 w-1 px-3 py-1">!</span>Report</button>
     
   </div>
 }

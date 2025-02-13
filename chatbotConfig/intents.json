@@ -1,0 +1,29 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": ["Hi", "Hello", "Hey", "Good morning", "Good evening"],
+            "responses": ["Hello! How can I assist you with blogging?", "Hi there! What do you need help with?"]
+        },
+        {
+            "tag": "blog_ideas",
+            "patterns": ["Give me blog ideas", "Suggest a topic", "What should I write about?"],
+            "responses": ["How about writing about AI trends?", "You can explore content detoxification methods."]
+        },
+        {
+            "tag": "seo_tips",
+            "patterns": ["How to improve SEO?", "SEO tips", "Get more traffic"],
+            "responses": ["Use keyword research tools, write quality content, and improve backlinks."]
+        },
+        {
+            "tag": "content_improvement",
+            "patterns": ["How to make my blog engaging?", "Improve my content"],
+            "responses": ["Use storytelling, add visuals, and write in an active voice."]
+        },
+        {
+            "tag": "end",
+            "patterns": ["Bye", "Goodbye", "See you later"],
+            "responses": ["Goodbye! Happy blogging!", "See you later!"]
+        }
+    ]
+}

@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "./_lib/auth";
 import NextTopLoader from 'nextjs-toploader';
 import { GlobalContextProvider } from "./_Components/Context/globalContext";
+import Chatbot from "./_Components/chatBot";
 // import {} from "./_Components/Context/globalContext";
 const inter = Inter({ subsets: ["latin"] , display: 'swap', adjustFontFallback: false})
 
@@ -35,6 +36,7 @@ export default async function RootLayout({
               </CompleteProfileWrapper>
             </SessionProvider>
         </GlobalContextProvider>
+        <Chatbot/>
       </body>
     </html>
   );

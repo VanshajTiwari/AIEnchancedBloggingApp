@@ -6,13 +6,19 @@ import { auth, signIn, signOut } from "./auth";
 import sendMailToAdmin from "./mails/mailConfig";
 import reviewModel from "../db/reviewModel";
 import { revalidatePath } from "next/cache";
+import PersonalInfo from "../db/userPersonals";
+
 
 
 const baseURL=process.env.NEXT_PUBLIC_BACKEND_URL;
+const chatbotURL=process.env.NEXT_PUBLIC_CHATBOT_URL;
 
 const axiosInstance=axios.create({
     baseURL:baseURL
 });
+
+const chatbotAxiosInstance=axios.create({baseURL:chatbotURL});
+(async ()=>await connection())();
 export async function upload(formData:FormData){
     const data=await axiosInstance({
         method:"POST",
@@ -29,6 +35,7 @@ export async function SignInActionGitHub(){
 }
 export async function signOutAction(){
     await signOut({redirectTo:"/"});
+    revalidatePath("/");
 }
 
 // Mailling
@@ -49,24 +56,40 @@ export async function sendMail(formData:FormData){
         return {status:false,message:Error.message};
     }
 }
-
-
-// Blogs
-export async function getBlogs(category:string|null=""){
+// chatbotConfiguration
+export async function sendToBot(message:string){
     try{
-        // // // // console.log("called");
-        const blogs=await axiosInstance({
-            method:"GET",
-            url:category==""?"/blog":`/blog?category=${category}`,
+        const response=await chatbotAxiosInstance({
+            method:"POST",
+            url:"/api/post",
+            data:{message:message}
         });
-        // // // // console.log(blogs);
-        return blogs.data.result; 
+        return response.data;
     }
-    catch(err){
-        // console.error("server error");
-        return "";
+    catch(Err:any){
+        return {sender:"AI",text:"Try Again Later!"};
     }
 }
+export async function getChatbotHistory(){
+  //
+}
+// Blogs
+export async function getBlogs(category: string | null = "", id?: string) {
+    try {
+        const response = await axiosInstance({
+            method: "GET",
+            url: `/blog?category=${category || ""}${id ? `&id=${id}` : ""}`,
+        });
+        
+
+        // Debugging
+        return response.data.result.blogs; // Ensure it's always an array
+    } catch (err) {
+        console.error("Error fetching blogs:", err);
+        return []; // Return an empty array instead of an empty string
+    }
+}
+
 export async function uploadImage(file:FormData){
     try{
         // Send the POST request with the file and the necessary headers
@@ -146,7 +169,7 @@ export async function createReview(rating: number, formData: FormData) {
         comment,
         rating,
     };
-    await connection();
+    // await connection();
     let newReview=await reviewModel.findOne({post:postId,user:userId});
     if(newReview){
         newReview.comment=review.comment;
@@ -220,7 +243,7 @@ export async function updateUpvoteDownvote(postId: string, vote: boolean) {
 
 export async function updateReviewsShare(postId:string){
     try {
-        await connection();
+        // await connection();
         const session = await auth();
         if (!session?.user?._id) {
           return { status: false, message: "User not authenticated" };
@@ -265,7 +288,7 @@ export async function deleteReviewById(id:string){
 export async function CreateUser(userData:any){
     try{
         const {provider,given_name, family_name, email,picture:profile_img}=userData;
-        await connection();
+        // await connection();
         const storingData={provider,profile_img,given_name, family_name,email};
         const newUser=new User(storingData);
         await newUser.save({ validateBeforeSave: false });
@@ -315,7 +338,7 @@ export async function findUser(identifier:string){
             return {};
         }
         else{
-            await connection()
+            // await connection()
             return await User.findOne({email:identifier});
         }
     }
@@ -326,11 +349,31 @@ export async function findUser(identifier:string){
 }
 export async function findUserById(identifier:string){
     try{
-            await connection()
             return await User.findById(identifier);
         }
     catch(err:any){
         // // // console.log(err.message);
         return {status:false,message:err.message};
     }
+}
+
+// personal Details for User Actions
+
+export async function findUserByEmail(identifier:string){
+    try{
+        console.log(identifier);
+        const userData=await User.findOne({email:identifier});
+        if(!userData){
+            return {status:false,message:"BAD Request!"};
+        }//
+        const response=await PersonalInfo.findOne({userId:userData._id});
+        return {status:true,message:"These"};        
+    }
+    catch(err:any){
+        return {status:false,message:err.message};
+    }
+}
+
+export async function editpersonalDetails(){
+
 }

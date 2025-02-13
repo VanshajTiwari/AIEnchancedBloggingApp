@@ -6,6 +6,6 @@ import connection from "@/app/db/dbConnect";
 
 
 export async function GET(req:NextRequest,Context:any){
-    connection();
+    await connection();
     return await getAllblogs(req,Context);
 }

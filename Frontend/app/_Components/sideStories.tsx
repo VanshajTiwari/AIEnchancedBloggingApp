@@ -5,7 +5,7 @@ import RecommendedArticle from "./recommededArticle";
 import Link from "next/link";
 export default function SideStories(){
     return(
-        <div className="flex flex-col w-full lg:w-[30%] p-3 dark:bg-black dark:text-gray-400 overflow-hidden">
+        <div className="flex flex-col w-full lg:w-[30%] p-3 dark:bg-gray-800 dark:text-gray-400 overflow-hidden">
         <h1 className="flex items-center text-[30px]  --main--logo" ><HiOutlinePaintBrush/>AI Enchance blogging</h1>
         <div>
           <p className="min-w-[200px] dark:text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus impedit, dicta aspernatur suscipit doloribus maiores tempore totam veritatis minima commodi!</p>
@@ -17,11 +17,11 @@ export default function SideStories(){
           <section className="flex flex-col items-center">
             <span className="text-[30px] " style={{fontFamily:"Bebas , sans-serif"}}>Top trending 🔥</span>
             <div className="flex flex-wrap gap-x-2 justify-center">
-              <Link href="/post?category=science" className="px-2 py-1 bg-gray-200 dark:bg-gray-800 rounded-md m-1 hover:bg-gray-300">Science</Link>
-              <Link href="/post?category=health" className="px-2  py-1 bg-gray-200 dark:bg-gray-800 rounded-md m-1  hover:bg-gray-300">Health</Link>
-              <Link href="/post?category=politics" className="px-2  py-1 bg-gray-200 rounded-md m-1 dark:bg-gray-800  hover:bg-gray-300">Politics</Link>
-              <Link href="/post?category=awareness" className="px-2 py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300 dark:bg-gray-800">General Awareness</Link>
-              <Link href="/post?category=sports" className="px-2 py-1 bg-gray-200 rounded-md m-1  dark:bg-gray-800 hover:bg-gray-300">Sports</Link>
+              <Link href="/post?category=science" className="px-2 py-1 bg-gray-200 dark:bg-gray-900 rounded-md m-1 hover:bg-gray-300">Science</Link>
+              <Link href="/post?category=health" className="px-2  py-1 bg-gray-200 dark:bg-gray-900 rounded-md m-1  hover:bg-gray-300">Health</Link>
+              <Link href="/post?category=politics" className="px-2  py-1 bg-gray-200 rounded-md m-1 dark:bg-gray-900  hover:bg-gray-300">Politics</Link>
+              <Link href="/post?category=awareness" className="px-2 py-1 bg-gray-200 rounded-md m-1  hover:bg-gray-300 dark:bg-gray-900">General Awareness</Link>
+              <Link href="/post?category=sports" className="px-2 py-1 bg-gray-200 rounded-md m-1  dark:bg-gray-900 hover:bg-gray-300">Sports</Link>
             </div>
           </section>
           <section className="flex flex-col items-center mt-2">

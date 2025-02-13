@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
+    "buildbot":"pip install -r ../chatbotConfig/requirements.txt",
+    "devbot":"python ../chatbotConfig/app.py",
     "test": "npm i",
     "build": "next build",
     "start": "next start",

@@ -1,37 +1,35 @@
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { sendToBot } from "../_lib/action";
 
 export default function Chatbot(){
   const [isOpen, setIsOpen] = useState(false);
+  const messageBox=useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState([
     { sender: "AI", text: "Hi, how can I help you today?" },
-    {sender:"User",text:"What is Misogynist?"}
   ]);
   const [input, setInput] = useState("");
-
-  const toggleChatbot = () => {
-    setIsOpen(!isOpen);
-  };
-
+  const toggleChatbot = () => { setIsOpen(!isOpen); };
   const handleSend = (e:any) => {
     e.preventDefault();
     if (input.trim() === "") return;
-
     setMessages([...messages, { sender: "You", text: input }]);
-
-    // Simulate AI response
-    setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          sender: "AI",
-          text: "Sorry, I couldn't find any information in the documentation about that. Expect the answer to be less accurate."
-        },
-      ]);
-    }, 1000);
-
+    (async (input:string)=>{
+      const response= await sendToBot(input);
+      setMessages(prevMessages=>[
+        ...prevMessages,response
+      ])})(input);
+    
+    
     setInput("");
   };
-
+  const scrollToBottom = () => {
+    messageBox.current?.scrollIntoView({ behavior: "smooth" })
+  } 
+  useEffect(()=>{
+   scrollToBottom();
+  },[messages]);
+    
   return (
     <>
       <button
@@ -39,8 +37,7 @@ export default function Chatbot(){
         type="button"
         aria-haspopup="dialog"
         aria-expanded={isOpen}
-        onClick={toggleChatbot}
-      >
+        onClick={toggleChatbot}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="30"
@@ -53,23 +50,18 @@ export default function Chatbot(){
           strokeLinejoin="round"
           className="text-black hover:text-white block border-gray-200 align-middle"
         >
-          <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" className="border-gray-200" />
+        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" className="border-gray-200" />
         </svg>
       </button>
-
+                 
       {isOpen && (
-        <div
-          style={{
-            boxShadow: "0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05)",
-          }}
-          className="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[534px]"
-        >
+        <div style={{boxShadow: "0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05)",}}
+          className="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[534px]">
           <div className="flex flex-col space-y-1.5 pb-6">
             <h2 className="font-semibold text-lg tracking-tight">Chatbot</h2>
             <p className="text-sm text-[#6b7280] leading-3">Powered by Mendable and Vercel</p>
           </div>
-
-          <div className="pr-4 h-[374px] overflow-y-auto" style={{ minWidth: "100%" }}>
+          <div ref={messageBox} className="pr-4 h-[374px] overflow-y-auto" style={{ minWidth: "100%" }}>
             {messages.map((message, index) => (
               <div key={index} className="flex gap-3 border p-2 rounded-md my-4 text-gray-600 text-sm flex-1">
                 <span className="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
@@ -113,7 +105,6 @@ export default function Chatbot(){
               </div>
             ))}
           </div>
-
           <div className="flex items-center pt-0">
             <form
               className="flex items-center justify-center w-full space-x-2"

@@ -19,6 +19,10 @@ export const getBlogsByIdWithReviews=async (req:NextRequest,context:any)=>{
 }
 export const getAllblogs=async (req:NextRequest,context:any)=>{
     const query=context.query;
+    if(!query){
+        const blogs=await blogSchema.find({}).populate("author");
+        return NextResponse.json({status:"ok",result:{blogs}});   
+    }
     const blogs=await blogSchema.find(query).populate("author");
     return NextResponse.json({status:"ok",result:{blogs}});
 };

@@ -94,7 +94,7 @@ export default function BlogSlider() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="w-full flex lg:flex-row flex-col justify-center mx-auto max-w-5xl bg-white shadow-md rounded-md overflow-hidden"
+          className="w-full flex lg:flex-row flex-col justify-center mx-auto max-w-5xl bg-gray-900 shadow-md rounded-md overflow-hidden"
         >
           {/* Image Section */}
           <motion.div
@@ -116,7 +116,7 @@ export default function BlogSlider() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative pb-14 pl-4 pt-3 w-full lg:w-[30%] bg-blue-900 text-gray-200 rounded-md md:rounded-l-none md:rounded-r-md"
+            className="relative pb-14 pl-4 pt-3 w-full lg:w-[30%]  dark:bg-gray-800 bg-blue-900 text-gray-200 rounded-md md:rounded-l-none md:rounded-r-md"
           >
             <h1 className="text-3xl font-bold" style={{ fontFamily: "Bebas" }}>
               {blogs[currentIndex].title}
